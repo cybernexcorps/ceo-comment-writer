@@ -960,11 +960,11 @@ ceo-comment-writer/
 |   +-- CLAUDE.md                                # AI assistant guidance
 |
 +-- PROMPTS & PROFILES
-|   +-- maria-ceo-comment-writer-prompt.md       # Full prompt library (~23 KB)
-|   +-- maria-ceo-comment-writer-instructions-short.md  # Short instructions
-|   +-- maria-ceo-comment-writer-prompt-improved.md     # Enhanced prompt
-|   +-- conversation-starters.md                 # Telegram conversation starters
-|   +-- Mарія Архангельська і DDVB_ профіль і роль.md   # Maria's background (Russian)
+|   +-- PROMPTS.md                                # Complete prompt templates reference
+|   +-- profiles/                                 # Commentator voice profiles
+|   |   +-- maria_arkhangelskaya.json            # Maria's profile
+|   |   +-- default.json                         # Fallback profile
+|   +-- conversation-starters.md                 # Telegram conversation starters (if exists)
 |
 +-- BACKUP
     +-- ceo-comment-writer-workflow-multi.json.backup  # v2.2 backup
@@ -976,6 +976,7 @@ ceo-comment-writer/
 |------|---------|-------------|
 | `ceo-comment-writer-workflow-multi.json` | Production workflow | Import into n8n |
 | `README.md` | Comprehensive reference | Architecture, features, configuration |
+| `PROMPTS.md` | Prompt templates reference | Modify AI prompts, understand prompt structure |
 | `PR-MANAGER-FEEDBACK-GUIDE.md` | User guide | How to request and refine comments |
 | `IMPLEMENTATION-GUIDE.md` | Setup guide | Initial deployment and testing |
 | `profiles/*.json` | Voice profiles | Add/modify commentators |

@@ -1,4 +1,1418 @@
 
+ ▐▛███▜▌   Claude Code v2.0.50
+▝▜█████▛▘  Sonnet 4.5 · Claude Pro
+  ▘▘ ▝▝    D:\Downloads\SynologyDrive\DDVB Analytics\marketing-automation-n…
+
+> use n8n-workflow-architecht To work on this workflow. The current problem 
+is that when the user gets the telegram message with the output, it looks 
+like this: ✅ Комментарий готов!
+
+👤 Профиль: Мария Архангельская
+📊 Длина: 2806 знаков
+📰 Медиа: Sostav.ru
+
+
+━━━━━━━━━━━━━━━━
+{"output":{"id":"msg_0941e88e11b77b060069245c9dc1b881989cb12ef7dccb290a","ty
+pe":"message","status":"completed","content":[{"type":"output_text","annotat
+ions":[,"logprobs":,"text":"1. КОНТЕКСТ
+Речь о ребрендинге СТМ «Красная цена» у «Пятёрочки» — базового 
+эконом-сегмента в портфеле сети. Тема важна для рынка: рост доли СТМ и 
+«дискаунтеризация» усиливают роль чёткой архитектуры и прозрачной навигации 
+на полке. Сейчас от дизайна и системы управления зависит не только 
+восприятие цены, но и доверие к качеству и эффективность операционных 
+процессов.
+
+2. КОММЕНТАРИЙ
+Отвечая прямо: проект считаю своевременным и профессионально выверенным 
+шагом, если вы закрепляете за «Красной ценой» понятный статус entry-tier и 
+усиливаете доверие через ясную систему идентификации и качества.
+
+Почему это важно. За 20+ лет мы видим: эконом-СТМ работает, когда решает три
+ задачи одновременно — мгновенная узнаваемость на полке, экономическая 
+эффективность печати и сборки, и «социальное доказательство» качества. Если 
+у вас появились устойчивые к носителям коды (цвет, простая графика, крупная 
+типографика), вы закладываете фундамент роста оборота без роста издержек.
+
+В нашей практике критично строить модульную систему упаковки под десятки 
+категорий и десятки производителей. Унифицированные поля безопасности, 
+фиксированные зоны для состава/штрих-кодов, допуски под флексо и офсет — это
+ не «дизайнерская мелочь», а гарантия, что одна SKU-модель переживёт разные 
+линии, лаки и основы без потери читаемости.
+
+Отдельно — про доверие. Красный как код «низкой цены» легко уводит в 
+«слишком дешево». Снимает риск единый знак контроля качества, понятные 
+пиктограммы свойств и крупные «факты за 3 секунды»: масса, категория, срок 
+годности. Это снижает барьер первой покупки и претензии на кассе.
+
+Важно и «экранная полка». На карточке товара 60–80 пикселей читаются лишь 
+два элемента. Если вы упростили фронт до маркировки уровня цены и названия 
+категории, конверсия в корзину в приложении обычно растёт. Мы видели до 
++8–12% к CTR на СТМ после такого упрощения.
+
+С точки зрения архитектуры портфеля уместен мягкий endorsement сети: это 
+добавляет доверия, но не размывает цену-знаменатель. Балансируйте, чтобы не 
+каннибализировать mid-tier СТМ: разные «коридоры» цен/качеств и различимые 
+коды важнее, чем креативные нюансы.
+
+Как мерить успех. Рекомендую метрики: доля полки и видимости (Eye Tracking 
+или видеоаналитика), повторные покупки по карте лояльности, снижение 
+отказов/возвратов, стабильность печати (процент тиражей без правок), NPS по 
+СТМ в ключевых категориях.
+
+Итог: это сильный стратегический апдейт при условии жёсткой операционной 
+дисциплины и тестов на быстрых категориях перед полномасштабным выводом. Вы 
+получите эффект не только в имидже, но и в экономике 
+полки."}],"role":"assistant"}]}
+━━━━━━━━━━━━━━━━
+
+This message was sent automatically with n8n (https://n8n.io/?utm_source=n8n
+-internal&utm_medium=powered_by&utm_campaign=n8n-nodes-base.telegram_c43650a
+ac784c0350f3118d77384bbe7d5304d048a958ee218cafcaff1cce473) As you see, it 
+contains artifacts in the message. That shouldn't be there.Like this 
+{"output":{"id":"msg_0941e88e11b77b060069245c9dc1b881989cb12ef7dccb290a","ty
+pe":"message","status":"completed","content":[{"type":"output_text","annotat
+ions":[,"logprobs":,"text":" At the beginning, at the end, like this: 
+"}],"role":"assistant"}]} 
+
+● I'll use the n8n workflow architect agent to analyze and fix this issue.
+  The problem is that raw JSON response structure from the AI agent is being
+   included in the Telegram message instead of just the extracted text
+  content.
+  ⎿  Interrupted · What should Claude do instead?
+
+> use n8n-workflow-architecht To work on this workflow. The current problem 
+is that when the user gets the telegram message with the output,     
+it looks like this: ✅ Комментарий готов!
+
+👤 Профиль: Мария Архангельская
+📊 Длина: 2806 знаков
+📰 Медиа: Sostav.ru
+
+
+━━━━━━━━━━━━━━━━
+{"output":{"id":"msg_0941e88e11b77b060069245c9dc1b881989cb12ef7dccb290a","ty
+pe":"message","status":"completed","content":[{"type":"output_tex    
+t","annotations":[,"logprobs":,"text":"1. КОНТЕКСТ
+Речь о ребрендинге СТМ «Красная цена» у «Пятёрочки» — базового 
+эконом-сегмента в портфеле сети. Тема важна для рынка: рост доли СТМ и 
+«дискаунтеризация» усиливают роль чёткой архитектуры и прозрачной навигации 
+на полке. Сейчас от дизайна и системы управления зависит не 
+только восприятие цены, но и доверие к качеству и эффективность операционных
+ процессов.
+
+2. КОММЕНТАРИЙ
+Отвечая прямо: проект считаю своевременным и профессионально выверенным 
+шагом, если вы закрепляете за «Красной ценой» понятный статус 
+entry-tier и усиливаете доверие через ясную систему идентификации и 
+качества.
+
+Почему это важно. За 20+ лет мы видим: эконом-СТМ работает, когда решает три
+ задачи одновременно — мгновенная узнаваемость на полке, 
+экономическая эффективность печати и сборки, и «социальное доказательство» 
+качества. Если у вас появились устойчивые к носителям коды (цвет,     
+простая графика, крупная типографика), вы закладываете фундамент роста 
+оборота без роста издержек.
+
+В нашей практике критично строить модульную систему упаковки под десятки 
+категорий и десятки производителей. Унифицированные поля 
+безопасности, фиксированные зоны для состава/штрих-кодов, допуски под флексо
+ и офсет — это не «дизайнерская мелочь», а гарантия, что одна        
+SKU-модель переживёт разные линии, лаки и основы без потери читаемости.
+
+Отдельно — про доверие. Красный как код «низкой цены» легко уводит в 
+«слишком дешево». Снимает риск единый знак контроля качества, понятные      
+пиктограммы свойств и крупные «факты за 3 секунды»: масса, категория, срок 
+годности. Это снижает барьер первой покупки и претензии на кассе.     
+
+Важно и «экранная полка». На карточке товара 60–80 пикселей читаются лишь 
+два элемента. Если вы упростили фронт до маркировки уровня цены и      
+названия категории, конверсия в корзину в приложении обычно растёт. Мы 
+видели до +8–12% к CTR на СТМ после такого упрощения.
+
+С точки зрения архитектуры портфеля уместен мягкий endorsement сети: это 
+добавляет доверия, но не размывает цену-знаменатель. Балансируйте,      
+чтобы не каннибализировать mid-tier СТМ: разные «коридоры» цен/качеств и 
+различимые коды важнее, чем креативные нюансы.
+
+Как мерить успех. Рекомендую метрики: доля полки и видимости (Eye Tracking 
+или видеоаналитика), повторные покупки по карте лояльности, 
+снижение отказов/возвратов, стабильность печати (процент тиражей без 
+правок), NPS по СТМ в ключевых категориях.
+
+Итог: это сильный стратегический апдейт при условии жёсткой операционной 
+дисциплины и тестов на быстрых категориях перед полномасштабным         
+выводом. Вы получите эффект не только в имидже, но и в экономике 
+полки."}],"role":"assistant"}]}
+━━━━━━━━━━━━━━━━
+
+This message was sent automatically with n8n (https://n8n.io/?utm_source=n8n
+-internal&utm_medium=powered_by&utm_campaign=n8n-nodes-base.teleg    
+ram_c43650aac784c0350f3118d77384bbe7d5304d048a958ee218cafcaff1cce473) As you
+ see, it contains artifacts in the message. That shouldn't be        
+there.Like this {"output":{"id":"msg_0941e88e11b77b060069245c9dc1b881989cb12
+ef7dccb290a","type":"message","status":"completed","content":[{"t    
+ype":"output_text","annotations":[,"logprobs":,"text":" At the beginning, at
+ the end, like this: "}],"role":"assistant"}]} 
+
+● n8n-workflow-architect(Analyze n8n workflow JSON issue)
+  ⎿  Done (4 tool uses · 52.8k tokens · 4m 55s)                            
+
+● Let me read the workflow file directly to analyze the issue:
+
+● Read(ceo-comment-writer-workflow-multi.json)
+  ⎿  Read 1134 lines
+
+● I found the issue! Let me analyze the workflow and identify the exact
+  problem:
+
+  Problem Analysis
+
+  The issue is in two nodes:
+
+  1. "Message a model1" (Humanization node) - Lines 257-287
+
+  This node has empty prompt configuration:
+  "responses": {
+    "values": [
+      {}  // ← EMPTY! No actual prompt is being sent
+    ]
+  },
+
+  Compare this to the first "Message a model" node which correctly
+  references prompts:
+  "responses": {
+    "values": [
+      {
+        "role": "system",
+        "content": "={{ $json.systemMessage }}"  // ← Correct!
+      },
+      {
+        "content": "={{ $json.userMessage }}"      // ← Correct!
+      }
+    ]
+  },
+
+  2. "Calculate Revision Diff" node - Lines 289-300
+
+  The extraction logic tries to handle the AI response, but when the
+  humanization model returns unexpected data (because it received no
+  prompt), the fallback isn't handling it correctly. The raw JSON object
+  ends up in humanizedComment.
+
+  The user's error shows:
+  {"output":{"id":"msg_...","content":[{"type":"output_text","text":"...
+
+  This is the raw OpenAI Responses API structure being displayed instead of
+  the extracted text.
+                                                                           
+● User approved Claude's plan
+  ⎿  Fix Plan: Telegram JSON Artifacts Issue
+
+     Root Cause
+
+     1. "Message a model1" node is configured with empty prompts - it's not 
+     receiving humanizeSystemMessage and humanizeUserMessage from the 
+     previous node
+     2. "Calculate Revision Diff" node's extraction logic fails to properly 
+     handle the AI response format
+
+     Fixes
+
+     Fix 1: Configure "Message a model1" node (Humanization)
+
+     Update the responses.values to correctly reference the humanize 
+     prompts:
+     "responses": {
+       "values": [
+         {
+           "role": "system",
+           "content": "={{ $json.humanizeSystemMessage }}"
+         },
+         {
+           "content": "={{ $json.humanizeUserMessage }}"
+         }
+       ]
+     }
+
+     Fix 2: Improve "Calculate Revision Diff" extraction logic
+
+     Update the extraction code to handle more response formats robustly:
+     - Add explicit handling for output.content[0].text format
+     - Add better fallback logic  
+     - Ensure we always extract clean text, not raw JSON objects
+
+     Files to Modify
+
+     - ceo-comment-writer-workflow-multi.json
+       - "Message a model1" node: Add prompt references
+       - "Calculate Revision Diff" node: Improve extraction logic
+
+
+
+● Update(ceo-comment-writer-workflow-multi.json)
+  ⎿  Updated ceo-comment-writer-workflow-multi.json with 7 additions and 1 
+     removal
+       264            },
+       265            "responses": {
+       266              "values": [
+       267 -              {}
+       267 +              {
+       268 +                "role": "system",
+       269 +                "content": "={{ $json.humanizeSystemMessage 
+           + }}"
+       270 +              },
+       271 +              {
+       272 +                "content": "={{ $json.humanizeUserMessage }}"
+       273 +              }
+       274              ]
+       275            },
+       276            "builtInTools": {},
+
+● Now let me improve the extraction logic in "Calculate Revision Diff" to be
+   more robust:
+
+● Update(ceo-comment-writer-workflow-multi.json)
+  ⎿  Updated ceo-comment-writer-workflow-multi.json with 1 addition and 1 
+     removal
+       293        },
+       294        {
+       295          "parameters": {
+       296 -          "jsCode": "// 1. RECOVER CONTEXT (Critical Fix)\n//
+           -   The \"Message a model\" node swallowed the sessionId and 
+           -  profile.\n// We must fetch them from the node BEFORE the 
+           -  AI.\nconst contextNode = 'Build Humanize Prompt';\nlet 
+           -  context = {};\ntry {\n   // Try to grab the data that went 
+           -  INTO the AI agent\n   if ($items(contextNode).length > 0) 
+           -  {\n    context = $items(contextNode)[0].json;\n  } else {\n
+           -      context = $node[contextNode].json;\n  }\n} catch (e) 
+           -  {\n  console.log(\"Warning: Could not recover context from 
+           -  previous node\");\n}\n\n// 2. Extract Humanized Comment
+           -  \nconst item = $input.item.json;\nlet humanizedComment = 
+           -  '';\n\n// Handle all possible AI output formats\nif (item.
+           -  output?.content?.[0]?.text) {\n    humanizedComment = item
+           -  .output.content[0].text;\n} else if (item.message?.content
+           -  ) {\n    humanizedComment = item.message.content;\n} else 
+           -  if (item.choices?.[0]?.message?.content) {\n
+           -      humanizedComment = item.choices[0].message.content;\n} 
+           -  else if (typeof item.mainComment === 'string') {\n    
+           -  humanizedComment = item.mainComment; \n} else {\n    // If 
+           -  AI failed completely, fallback to the previous step's main 
+           -  comment\n    humanizedComment = context.mainComment || \
+           -  "Error: Could not extract comment\";\n}\n\n// Ensure it is 
+           -  a string (avoid literal \"undefined\")\nhumanizedComment = 
+           -  String(humanizedComment || '');\n\nconst finalCharCount = 
+           -  humanizedComment.length;\nconst currentIteration = 
+           -  context.currentIteration || 1;\nconst conversationHistory =
+           -   context.conversationHistory || [];\n\n// 3. Calculate 
+           -  Diff\nlet diffSummary = null;\nif 
+           -  (conversationHistory.length > 0) {\n  const previousComment
+           -   = conversationHistory[conversationHistory.length - 
+           -  1].comment;\n  const previousLength = 
+           -  previousComment.length;\n  const lengthDiff = 
+           -  finalCharCount - previousLength;\n  const lengthDiffPercent
+           -   = previousLength > 0 ? Math.round((lengthDiff / 
+           -  previousLength) * 100) : 0;\n  \n  diffSummary = {\n    
+           -  previousLength,\n    currentLength: finalCharCount,\n    
+           -  lengthDiff,\n    lengthDiffPercent,\n    lengthChange: 
+           -  lengthDiff > 0 ? 'увеличен' : lengthDiff < 0 ? 'сокращён' :
+           -   'без изменений'\n  };\n}\n\n// 4. RETURN MERGED 
+           -  DATA\nreturn {\n  json: {\n    ...context, // <--- This 
+           -  restores sessionId, profile, and history!\n    
+           -  humanizedComment,\n    finalCharCount,\n    diffSummary,\n 
+           -     readyForApproval: true\n  }\n};"
+       296 +          "jsCode": "// 1. RECOVER CONTEXT (Critical Fix)\n//
+           +   The \"Message a model\" node swallowed the sessionId and 
+           +  profile.\n// We must fetch them from the node BEFORE the 
+           +  AI.\nconst contextNode = 'Build Humanize Prompt';\nlet 
+           +  context = {};\ntry {\n   // Try to grab the data that went 
+           +  INTO the AI agent\n   if ($items(contextNode).length > 0) 
+           +  {\n    context = $items(contextNode)[0].json;\n  } else {\n
+           +      context = $node[contextNode].json;\n  }\n} catch (e) 
+           +  {\n  console.log(\"Warning: Could not recover context from 
+           +  previous node\");\n}\n\n// 2. Extract Humanized Comment
+           +   with ROBUST extraction
+           +  \nconst item = $input.item.json;\nlet humanizedComment = 
+           +  '';\n\n// Helper function to extract text from various AI 
+           +  response formats\nfunction extractText(
+           +  response) {\n    if (!response) return null;\n    \n    // 
+           +  Format 1: OpenAI Responses API - output.
+           +  content[0].text\n    if (response.
+           +  output?.content?.[0]?.text) {\n        return response
+           +  .output.content[0].text;\n    }\n    \n    // Format 
+           +  2: Direct output.text (simplified)\n    if (response.output
+           +  ?.text) {\n        return response.output.text;\n    
+           +  }\n    \n    // Format 
+           +  3: Standard chat completion - message.
+           +  content\n    if (response.message?.content
+           +  ) {\n        return response.message.content;\n    }
+           +  \n    \n    // Format 4: OpenAI Chat Completions API - 
+           +  choices[0].message.content\n    if (response
+           +  .choices?.[0]?.message?.content) {\n        return response
+           +  .choices[0].message.content;\n    }\n    \n    // Format 
+           +  5: Direct text property\n    if (typeof response.text
+           +   === 'string') {\n        return response.text;\n    
+           +  }\n    \n    // 
+           +  Format 6: Direct content property\n    if (typeof 
+           +  response.content === 'string') {\n        return response.
+           +  content;\n    }\n    \n    // Format 
+           +  7: If output is a string directly\n    if (typeof 
+           +  response.output === 'string') {\n
+           +          return response.output;\n    }\n    \n    // 
+           +  Format 8: If the response itself is 
+           +  a string\n    if (typeof response === 'string') {\n        
+           +  return response;\n    }\n    \n    return null;\n}\n\n// 
+           +  Try to extract from the AI response\nhumanizedComment = 
+           +  extractText(item);\n
+           +  \n// If extraction failed, try mainComment from context\nif
+           +   (!humanizedComment && context.mainComment) {\n
+           +      humanizedComment = context.mainComment;\n}\n\n// Last 
+           +  resort fallback\
+           +  nif (!humanizedComment) {\n    humanizedComment = \
+           +  "Error: Could not extract comment\";\n}\n\n// 
+           +  SAFETY CHECK: Ensure 
+           +  humanizedComment is a clean string, not JSON\n// If it 
+           +  looks like JSON (starts with { or [), try to extract text 
+           +  from it\nif (typeof humanizedComment === 'string' && 
+           +  (humanizedComment.trim().startsWith('{') || 
+           +  humanizedComment.trim().startsWith('['))) {\n    try {\n   
+           +       const parsed = JSON.parse(humanizedComment);\n        
+           +  const extracted = extractText(parsed);\n        if 
+           +  (extracted) {\n            humanizedComment = extracted;\n 
+           +         }\n    } catch (e) {\n        // Not valid JSON, 
+           +  keep as is\n    }\n}\n\n// Ensure it is 
+           +  a string (avoid literal \"undefined\")\nhumanizedComment = 
+           +  String(humanizedComment || '');\n\nconst finalCharCount = 
+           +  humanizedComment.length;\nconst currentIteration = 
+           +  context.currentIteration || 1;\nconst conversationHistory =
+           +   context.conversationHistory || [];\n\n// 3. Calculate 
+           +  Diff\nlet diffSummary = null;\nif 
+           +  (conversationHistory.length > 0) {\n  const previousComment
+           +   = conversationHistory[conversationHistory.length - 
+           +  1].comment;\n  const previousLength = 
+           +  previousComment.length;\n  const lengthDiff = 
+           +  finalCharCount - previousLength;\n  const lengthDiffPercent
+           +   = previousLength > 0 ? Math.round((lengthDiff / 
+           +  previousLength) * 100) : 0;\n  \n  diffSummary = {\n    
+           +  previousLength,\n    currentLength: finalCharCount,\n    
+           +  lengthDiff,\n    lengthDiffPercent,\n    lengthChange: 
+           +  lengthDiff > 0 ? 'увеличен' : lengthDiff < 0 ? 'сокращён' :
+           +   'без изменений'\n  };\n}\n\n// 4. RETURN MERGED 
+           +  DATA\nreturn {\n  json: {\n    ...context, // <--- This 
+           +  restores sessionId, profile, and history!\n    
+           +  humanizedComment,\n    finalCharCount,\n    diffSummary,\n 
+           +     readyForApproval: true\n  }\n};"
+       297          },
+       298          "id": "05ef0ec3-8fc0-4821-b4ec-0bf3298b66f5",
+       299          "name": "Calculate Revision Diff",
+
+● Done! I've fixed both issues in the workflow:
+
+  Summary of Changes
+
+  Fix 1: "Message a model1" node (lines 265-274)
+
+  The humanization model was configured with empty prompts. Now it correctly
+   references:
+  "responses": {
+    "values": [
+      {
+        "role": "system",
+        "content": "={{ $json.humanizeSystemMessage }}"
+      },
+      {
+        "content": "={{ $json.humanizeUserMessage }}"
+      }
+    ]
+  }
+
+  Fix 2: "Calculate Revision Diff" node (lines 295-296)
+
+  Added a robust extractText() helper function that handles 8 different AI
+  response formats:
+  1. OpenAI Responses API (output.content[0].text)
+  2. Direct output.text
+  3. Standard chat completion (message.content)
+  4. Chat Completions API (choices[0].message.content)
+  5. Direct text property
+  6. Direct content property
+  7. Output as string
+  8. Response as string
+
+  Also added a safety check that detects if the extracted text looks like
+  JSON and attempts to parse and extract the actual text from it.
+
+  What was causing the issue
+
+  The "Message a model1" node had no prompts configured, causing the AI to
+  return unexpected data. The extraction logic then failed to properly
+  handle the response format, resulting in the raw JSON structure being
+  passed to the Telegram message.
+
+  To apply these changes: Re-import the updated
+  ceo-comment-writer-workflow-multi.json file into n8n.
+
+> Great! Let's also do the proper naming for the nodes, like Message Model 1
+ & Message Model 
+
+● Good idea! Let me rename the nodes to be more descriptive:
+
+● Update(ceo-comment-writer-workflow-multi.json)
+  ⎿  Updated ceo-comment-writer-workflow-multi.json with 1 addition and 1 
+     removal
+       220            512
+       221          ],
+       222          "id": "e47ae4d5-0078-4744-a15a-c76feb3ca3d3",
+       223 -        "name": "Message a model",
+       223 +        "name": "Generate Comment (GPT)",
+       224          "credentials": {
+       225            "openAiApi": {
+       226              "id": "vMHSP02jcq5bmgAi",
+
+● Update(ceo-comment-writer-workflow-multi.json)
+  ⎿  Updated ceo-comment-writer-workflow-multi.json with 1 addition and 1 
+     removal
+       283            512
+       284          ],
+       285          "id": "1bde51fb-4278-4434-a66e-a74f7ff4ba49",
+       286 -        "name": "Message a model1",
+       286 +        "name": "Humanize Comment (GPT)",
+       287          "credentials": {
+       288            "openAiApi": {
+       289              "id": "vMHSP02jcq5bmgAi",
+
+● Now I need to update the references in the connections section:
+
+● Update(ceo-comment-writer-workflow-multi.json)
+  ⎿  Error editing file
+
+● Search(pattern: "Message a model", path:
+        "ceo-comment-writer-workflow-multi.json", output_mode: "content")
+  ⎿  Found 5 lines (ctrl+o to expand)
+
+● Update(ceo-comment-writer-workflow-multi.json)
+  ⎿  Updated ceo-comment-writer-workflow-multi.json with 1 addition and 1 
+     removal
+       837          "main": [
+       838            [
+       839              {
+       840 -              "node": "Message a model",
+       840 +              "node": "Generate Comment (GPT)",
+       841                "type": "main",
+       842                "index": 0
+       843              }
+
+● Update(ceo-comment-writer-workflow-multi.json)
+  ⎿  Updated ceo-comment-writer-workflow-multi.json with 1 addition and 1 
+     removal
+       844            ]
+       845          ]
+       846        },
+       847 -      "Message a model": {
+       847 +      "Generate Comment (GPT)": {
+       848          "main": [
+       849            [
+       850              {
+
+● Update(ceo-comment-writer-workflow-multi.json)
+  ⎿  Updated ceo-comment-writer-workflow-multi.json with 1 addition and 1 
+     removal
+       870          "main": [
+       871            [
+       872              {
+       873 -              "node": "Message a model1",
+       873 +              "node": "Humanize Comment (GPT)",
+       874                "type": "main",
+       875                "index": 0
+       876              }
+
+● Update(ceo-comment-writer-workflow-multi.json)
+  ⎿  Updated ceo-comment-writer-workflow-multi.json with 1 addition and 1 
+     removal
+       877            ]
+       878          ]
+       879        },
+       880 -      "Message a model1": {
+       880 +      "Humanize Comment (GPT)": {
+       881          "main": [
+       882            [
+       883              {
+
+● Let me verify all references have been updated:
+
+● Search(pattern: "Message a model", path:
+        "ceo-comment-writer-workflow-multi.json", output_mode: "content")
+  ⎿  Found 1 line (ctrl+o to expand)
+
+● Read(ceo-comment-writer-workflow-multi.json)
+  ⎿  Read 10 lines
+
+● That reference is in a code comment. Let me update it:
+
+● Update(ceo-comment-writer-workflow-multi.json)
+  ⎿  Updated ceo-comment-writer-workflow-multi.json with 1 addition and 1 
+     removal
+       293        },
+       294        {
+       295          "parameters": {
+       296 -          "jsCode": "// 1. RECOVER CONTEXT (Critical Fix)\n//
+           -   The \"Message a model
+           -  \" node swallowed the sessionId and profile.\n// We must 
+           -  fetch them from the node BEFORE the AI.\nconst contextNode 
+           -  = 'Build Humanize Prompt';\nlet context = {};\ntry {\n   //
+           -   Try to grab the data that went INTO the AI agent\n   if 
+           -  ($items(contextNode).length > 0) {\n    context = 
+           -  $items(contextNode)[0].json;\n  } else {\n    context = 
+           -  $node[contextNode].json;\n  }\n} catch (e) {\n  
+           -  console.log(\"Warning: Could not recover context from 
+           -  previous node\");\n}\n\n// 2. Extract Humanized Comment 
+           -  with ROBUST extraction\nconst item = $input.item.json;\nlet
+           -   humanizedComment = '';\n\n// Helper function to extract 
+           -  text from various AI response formats\nfunction 
+           -  extractText(response) {\n    if (!response) return null;\n 
+           -     \n    // Format 1: OpenAI Responses API - 
+           -  output.content[0].text\n    if 
+           -  (response.output?.content?.[0]?.text) {\n        return 
+           -  response.output.content[0].text;\n    }\n    \n    // 
+           -  Format 2: Direct output.text (simplified)\n    if 
+           -  (response.output?.text) {\n        return 
+           -  response.output.text;\n    }\n    \n    // Format 3: 
+           -  Standard chat completion - message.content\n    if 
+           -  (response.message?.content) {\n        return 
+           -  response.message.content;\n    }\n    \n    // Format 4: 
+           -  OpenAI Chat Completions API - choices[0].message.content\n 
+           -     if (response.choices?.[0]?.message?.content) {\n        
+           -  return response.choices[0].message.content;\n    }\n    \n 
+           -     // Format 5: Direct text property\n    if (typeof 
+           -  response.text === 'string') {\n        return 
+           -  response.text;\n    }\n    \n    // Format 6: Direct 
+           -  content property\n    if (typeof response.content === 
+           -  'string') {\n        return response.content;\n    }\n    
+           -  \n    // Format 7: If output is a string directly\n    if 
+           -  (typeof response.output === 'string') {\n        return 
+           -  response.output;\n    }\n    \n    // Format 8: If the 
+           -  response itself is a string\n    if (typeof response === 
+           -  'string') {\n        return response;\n    }\n    \n    
+           -  return null;\n}\n\n// Try to extract from the AI 
+           -  response\nhumanizedComment = extractText(item);\n\n// If 
+           -  extraction failed, try mainComment from context\nif 
+           -  (!humanizedComment && context.mainComment) {\n    
+           -  humanizedComment = context.mainComment;\n}\n\n// Last 
+           -  resort fallback\nif (!humanizedComment) {\n    
+           -  humanizedComment = \"Error: Could not extract 
+           -  comment\";\n}\n\n// SAFETY CHECK: Ensure humanizedComment 
+           -  is a clean string, not JSON\n// If it looks like JSON 
+           -  (starts with { or [), try to extract text from it\nif 
+           -  (typeof humanizedComment === 'string' && 
+           -  (humanizedComment.trim().startsWith('{') || 
+           -  humanizedComment.trim().startsWith('['))) {\n    try {\n   
+           -       const parsed = JSON.parse(humanizedComment);\n        
+           -  const extracted = extractText(parsed);\n        if 
+           -  (extracted) {\n            humanizedComment = extracted;\n 
+           -         }\n    } catch (e) {\n        // Not valid JSON, 
+           -  keep as is\n    }\n}\n\n// Ensure it is a string (avoid 
+           -  literal \"undefined\")\nhumanizedComment = 
+           -  String(humanizedComment || '');\n\nconst finalCharCount = 
+           -  humanizedComment.length;\nconst currentIteration = 
+           -  context.currentIteration || 1;\nconst conversationHistory =
+           -   context.conversationHistory || [];\n\n// 3. Calculate 
+           -  Diff\nlet diffSummary = null;\nif 
+           -  (conversationHistory.length > 0) {\n  const previousComment
+           -   = conversationHistory[conversationHistory.length - 
+           -  1].comment;\n  const previousLength = 
+           -  previousComment.length;\n  const lengthDiff = 
+           -  finalCharCount - previousLength;\n  const lengthDiffPercent
+           -   = previousLength > 0 ? Math.round((lengthDiff / 
+           -  previousLength) * 100) : 0;\n  \n  diffSummary = {\n    
+           -  previousLength,\n    currentLength: finalCharCount,\n    
+           -  lengthDiff,\n    lengthDiffPercent,\n    lengthChange: 
+           -  lengthDiff > 0 ? 'увеличен' : lengthDiff < 0 ? 'сокращён' :
+           -   'без изменений'\n  };\n}\n\n// 4. RETURN MERGED 
+           -  DATA\nreturn {\n  json: {\n    ...context, // <--- This 
+           -  restores sessionId, profile, and history!\n    
+           -  humanizedComment,\n    finalCharCount,\n    diffSummary,\n 
+           -     readyForApproval: true\n  }\n};"
+       296 +          "jsCode": "// 1. RECOVER CONTEXT (Critical Fix)\n//
+           +   The \"Humanize Comment (GPT)
+           +  \" node swallowed the sessionId and profile.\n// We must 
+           +  fetch them from the node BEFORE the AI.\nconst contextNode 
+           +  = 'Build Humanize Prompt';\nlet context = {};\ntry {\n   //
+           +   Try to grab the data that went INTO the AI agent\n   if 
+           +  ($items(contextNode).length > 0) {\n    context = 
+           +  $items(contextNode)[0].json;\n  } else {\n    context = 
+           +  $node[contextNode].json;\n  }\n} catch (e) {\n  
+           +  console.log(\"Warning: Could not recover context from 
+           +  previous node\");\n}\n\n// 2. Extract Humanized Comment 
+           +  with ROBUST extraction\nconst item = $input.item.json;\nlet
+           +   humanizedComment = '';\n\n// Helper function to extract 
+           +  text from various AI response formats\nfunction 
+           +  extractText(response) {\n    if (!response) return null;\n 
+           +     \n    // Format 1: OpenAI Responses API - 
+           +  output.content[0].text\n    if 
+           +  (response.output?.content?.[0]?.text) {\n        return 
+           +  response.output.content[0].text;\n    }\n    \n    // 
+           +  Format 2: Direct output.text (simplified)\n    if 
+           +  (response.output?.text) {\n        return 
+           +  response.output.text;\n    }\n    \n    // Format 3: 
+           +  Standard chat completion - message.content\n    if 
+           +  (response.message?.content) {\n        return 
+           +  response.message.content;\n    }\n    \n    // Format 4: 
+           +  OpenAI Chat Completions API - choices[0].message.content\n 
+           +     if (response.choices?.[0]?.message?.content) {\n        
+           +  return response.choices[0].message.content;\n    }\n    \n 
+           +     // Format 5: Direct text property\n    if (typeof 
+           +  response.text === 'string') {\n        return 
+           +  response.text;\n    }\n    \n    // Format 6: Direct 
+           +  content property\n    if (typeof response.content === 
+           +  'string') {\n        return response.content;\n    }\n    
+           +  \n    // Format 7: If output is a string directly\n    if 
+           +  (typeof response.output === 'string') {\n        return 
+           +  response.output;\n    }\n    \n    // Format 8: If the 
+           +  response itself is a string\n    if (typeof response === 
+           +  'string') {\n        return response;\n    }\n    \n    
+           +  return null;\n}\n\n// Try to extract from the AI 
+           +  response\nhumanizedComment = extractText(item);\n\n// If 
+           +  extraction failed, try mainComment from context\nif 
+           +  (!humanizedComment && context.mainComment) {\n    
+           +  humanizedComment = context.mainComment;\n}\n\n// Last 
+           +  resort fallback\nif (!humanizedComment) {\n    
+           +  humanizedComment = \"Error: Could not extract 
+           +  comment\";\n}\n\n// SAFETY CHECK: Ensure humanizedComment 
+           +  is a clean string, not JSON\n// If it looks like JSON 
+           +  (starts with { or [), try to extract text from it\nif 
+           +  (typeof humanizedComment === 'string' && 
+           +  (humanizedComment.trim().startsWith('{') || 
+           +  humanizedComment.trim().startsWith('['))) {\n    try {\n   
+           +       const parsed = JSON.parse(humanizedComment);\n        
+           +  const extracted = extractText(parsed);\n        if 
+           +  (extracted) {\n            humanizedComment = extracted;\n 
+           +         }\n    } catch (e) {\n        // Not valid JSON, 
+           +  keep as is\n    }\n}\n\n// Ensure it is a string (avoid 
+           +  literal \"undefined\")\nhumanizedComment = 
+           +  String(humanizedComment || '');\n\nconst finalCharCount = 
+           +  humanizedComment.length;\nconst currentIteration = 
+           +  context.currentIteration || 1;\nconst conversationHistory =
+           +   context.conversationHistory || [];\n\n// 3. Calculate 
+           +  Diff\nlet diffSummary = null;\nif 
+           +  (conversationHistory.length > 0) {\n  const previousComment
+           +   = conversationHistory[conversationHistory.length - 
+           +  1].comment;\n  const previousLength = 
+           +  previousComment.length;\n  const lengthDiff = 
+           +  finalCharCount - previousLength;\n  const lengthDiffPercent
+           +   = previousLength > 0 ? Math.round((lengthDiff / 
+           +  previousLength) * 100) : 0;\n  \n  diffSummary = {\n    
+           +  previousLength,\n    currentLength: finalCharCount,\n    
+           +  lengthDiff,\n    lengthDiffPercent,\n    lengthChange: 
+           +  lengthDiff > 0 ? 'увеличен' : lengthDiff < 0 ? 'сокращён' :
+           +   'без изменений'\n  };\n}\n\n// 4. RETURN MERGED 
+           +  DATA\nreturn {\n  json: {\n    ...context, // <--- This 
+           +  restores sessionId, profile, and history!\n    
+           +  humanizedComment,\n    finalCharCount,\n    diffSummary,\n 
+           +     readyForApproval: true\n  }\n};"
+       297          },
+       298          "id": "05ef0ec3-8fc0-4821-b4ec-0bf3298b66f5",
+       299          "name": "Calculate Revision Diff",
+
+● Let me verify all references are updated:
+
+● Search(pattern: "Message a model", path:
+        "ceo-comment-writer-workflow-multi.json", output_mode: "count")
+  ⎿  Found 0 matches across 0 files 
+
+● Done! All node references have been updated:
+
+  Node Renames
+
+  | Old Name         | New Name               |
+  |------------------|------------------------|
+  | Message a model  | Generate Comment (GPT) |
+  | Message a model1 | Humanize Comment (GPT) |
+
+  Updated in:
+  - Node definitions (2 places)
+  - Connection sources (2 places)
+  - Connection targets (2 places)
+  - Code comment in "Calculate Revision Diff" (1 place)
+
+  The workflow now has more descriptive node names that clearly indicate
+  their purpose:
+  - Generate Comment (GPT) - Creates the initial comment using the AI Agent
+  prompt
+  - Humanize Comment (GPT) - Refines the comment to sound more natural
+
+> There are still artifacts. ✅ Комментарий готов!
+
+👤 Профиль: Мария Архангельская
+📊 Длина: 3298 знаков
+📰 Медиа: Sostav.ru
+
+
+━━━━━━━━━━━━━━━━
+{"output":{"id":"msg_09b7ff0af19d175b00692462290410819085694b1a6f253980","ty
+pe":"message","status":"completed","content":[{"type":"output_text","annotat
+ions":[,"logprobs":,"text":"1. КОНТЕКСТ
+«Пятёрочка» обновила визуальную и смысловую платформу своей эконом-СТМ 
+«Красная цена»: переработаны айдентика и упаковка, пересобрана архитектура 
+ассортимента и коммуникационный посыл. На фоне роста чувствительности к цене
+ и усиливающейся роли СТМ в ритейле это напрямую влияет на полочную 
+конкуренцию, восприятие качества и unit-экономику магазина. Проект важен как
+ с точки зрения бренда категории economy, так и с точки зрения операционной 
+управляемости линейки.
+
+2. КОММЕНТАРИЙ
+Если коротко: проект своевременный и в целом сильный. Он решает ключевую 
+задачу эконом-СТМ — мгновенную считываемость выгодности при сохранении 
+базового доверия к качеству. В нашей практике главная метрика для этого 
+сегмента — «скорость считывания выгоды» на полке в пределах одной секунды; у
+ «Красной цены» ставка на яркий цветовой блок и простой знак работает на эту
+ цель.
+
+Мне близка логика унифицированной дизайн-системы. За 20+ лет мы видим, что 
+масштабируемость важнее ярких «штучных» решений: когда у вас сотни SKU, 
+дисциплина сетки, модульность и константы бренда дают управляемую полку и 
+экономию в производстве. Здесь уместен принцип 70/20/10: 70% — неизменные 
+бренд-активы (цвет, форма, сигнатура), 20% — навигация категории, 10% — 
+свобода под специфику SKU. Такой каркас снижает «шум», ускоряет выбор и 
+повышает конверсию с полки.
+
+Сильная сторона проекта — простая семиотика «выгодно без сюрпризов». Но у 
+красного цвета есть риск раствориться в ценовой коммуникации ритейла в 
+целом. Я бы дополнительно усилила уникальный распознаваемый актив — 
+характерную форму плашки или типографическую деталь, которая работает даже в
+ ч/б и на расстоянии. Это помогает отличаться в промо-периоды, когда полка 
+«краснеет» у всех.
+
+Системно важно, что такая СТМ — не только про дизайн. Эконом-сегмент 
+«ломается» при малейшей нестабильности качества. На упаковке должны быть 
+простые «доказательства» контроля (понятные критерии, происхождение, базовые
+ стандарты), а внутри — отлаженный цикл обратной связи и быстрые 
+корректировки рецептур и поставок. Без этого любой хороший визуал быстро 
+проедается.
+
+Отмечу и операционные плюсы: ограниченная палитра печати, унификация 
+материалов, типоразмеров и ди-лайнов снижают издержки и брак, сокращают 
+time-to-shelf при вводе новых SKU. Для сетей это прямой вклад в маржу и 
+оборот, а для покупателя — в стабильность наличия.
+
+Коммуникационно правильно смещаться от «дёшево» к «разумная экономия». Это 
+защищает материнский бренд от эрозии и расширяет аудиторию за счёт тех, кто 
+ищет не минимальную цену, а понятную ценность. В офлайне это поддерживает 
+полочный блок, в онлайне — единая карточка-матрица и одинаковые принципы 
+визуала в приложении.
+
+Как оценивать успех? Помимо доли в продаже и маржи, смотрите на: скорость 
+поиска товара на полке, повторные покупки в категории, жалобы по качеству, 
+узнаваемость уникального бренд-актива и долю «Красной цены» в промо vs вне 
+промо. Если команда удержит дисциплину дизайн-системы и подтянет 
+операционную часть, проект станет устойчивым драйвером трафика без 
+дополнительного давления на промо-бюджет."}],"role":"assistant"}]}
+━━━━━━━━━━━━━━━━
+
+This message was sent automatically with n8n (https://n8n.io/?utm_source=n8n
+-internal&utm_medium=powered_by&utm_campaign=n8n-nodes-base.telegram_c43650a
+ac784c0350f3118d77384bbe7d5304d048a958ee218cafcaff1cce473) use 
+n8n-workflow-architect agent, mcp-perplexity to fix this 
+
+● The issue persists - let me use the n8n-workflow-architect agent to do a
+  deeper analysis:
+
+● n8n-workflow-architect(Debug n8n AI response extraction)
+  ⎿  Done (4 tool uses · 64.9k tokens · 2m 36s)                            
+
+● Let me verify the fixes were applied and check the current state of both
+  nodes:
+
+● Search(pattern: "extractTextFromAI|FINAL SAFETY", path:
+        "ceo-comment-writer-workflow-multi.json", output_mode: "count")
+  ⎿  Found 0 matches across 0 files 
+
+● The agent reported fixes but they weren't applied. Let me manually fix
+  both nodes with enhanced extraction logic:
+
+● Read(ceo-comment-writer-workflow-multi.json)
+  ⎿  Read 30 lines
+
+● I see the "Extract Comment" node already has robust extraction. The issue
+  is in "Calculate Revision Diff" which handles the humanization output. Let
+   me check its current state:
+
+● Read(ceo-comment-writer-workflow-multi.json)
+  ⎿  Read 15 lines
+
+● I see the issue now! The JSON in the output has malformed structure
+  ("annotations":[,) which causes JSON.parse to fail. The regex also fails
+  because the text contains literal newlines. Let me update the extraction
+  with a more aggressive approach:
+
+● Update(ceo-comment-writer-workflow-multi.json)
+  ⎿  Updated ceo-comment-writer-workflow-multi.json with 1 addition and 1 
+     removal
+       293        },
+       294        {
+       295          "parameters": {
+       296 -          "jsCode": "// 1. RECOVER CONTEXT (Critical Fix)\n//
+           -   The \"Humanize Comment (GPT)\" node swallowed the 
+           -  sessionId and profile.\n// We must fetch them from the node
+           -   BEFORE the AI.\nconst contextNode = 'Build Humanize 
+           -  Prompt';\nlet context = {};\ntry {\n   // Try to grab the 
+           -  data that went INTO the AI agent\n   if 
+           -  ($items(contextNode).length > 0) {\n    context = 
+           -  $items(contextNode)[0].json;\n  } else {\n    context = 
+           -  $node[contextNode].json;\n  }\n} catch (e) {\n  
+           -  console.log(\"Warning: Could not recover context from 
+           -  previous node\");\n}\n\n// 2. Extract Humanized Comment 
+           -  with ROBUST extraction\nconst item = $input.item.json;\nlet
+           -   humanizedComment = '';\n\n// Helper function to extract 
+           -  text from various AI response formats\nfunction 
+           -  extractText(response) {\n    if (!response) return null;\n 
+           -     \n    // If response is a string, check if it's JSON 
+           -  that needs parsing\n    if (typeof response === 'string') 
+           -  {\n        const trimmed = response.trim();\n        if 
+           -  (trimmed.startsWith('{') || trimmed.startsWith('[')) {\n   
+           -           try {\n                const parsed = 
+           -  JSON.parse(trimmed);\n                return 
+           -  extractText(parsed);\n            } catch (e) {\n          
+           -        return response;\n            }\n        }\n        
+           -  return response;\n    }\n    \n    // If not an object, 
+           -  return null\n    if (typeof response !== 'object' || 
+           -  response === null) {\n        return null;\n    }\n    \n  
+           -    // Format 1: OpenAI Responses API - 
+           -  output.content[0].text (PRIMARY FORMAT for LangChain OpenAI
+           -   node v2)\n    if (response.output?.content && 
+           -  Array.isArray(response.output.content)) {\n        for 
+           -  (const contentItem of response.output.content) {\n         
+           -     if (contentItem?.text) {\n                return 
+           -  contentItem.text;\n            }\n            if 
+           -  (contentItem?.type === 'output_text' && contentItem?.text) 
+           -  {\n                return contentItem.text;\n            
+           -  }\n        }\n    }\n    \n    // Format 2: Direct 
+           -  output.text (simplified)\n    if (response.output?.text && 
+           -  typeof response.output.text === 'string') {\n        return
+           -   response.output.text;\n    }\n    \n    // Format 3: If 
+           -  output itself is a string\n    if (typeof response.output 
+           -  === 'string') {\n        const trimmedOutput = 
+           -  response.output.trim();\n        if 
+           -  (trimmedOutput.startsWith('{') || 
+           -  trimmedOutput.startsWith('[')) {\n            try {\n      
+           -            const parsedOutput = JSON.parse(trimmedOutput);\n
+           -                  return extractText(parsedOutput);\n        
+           -      } catch (e) {\n                return 
+           -  response.output;\n            }\n        }\n        return 
+           -  response.output;\n    }\n    \n    // Format 4: Standard 
+           -  chat completion - message.content\n    if 
+           -  (response.message?.content && typeof 
+           -  response.message.content === 'string') {\n        return 
+           -  response.message.content;\n    }\n    \n    // Format 5: 
+           -  OpenAI Chat Completions API - choices[0].message.content\n 
+           -     if (response.choices?.[0]?.message?.content) {\n        
+           -  return response.choices[0].message.content;\n    }\n    \n 
+           -     // Format 6: Direct text property\n    if (typeof 
+           -  response.text === 'string') {\n        return 
+           -  response.text;\n    }\n    \n    // Format 7: Direct 
+           -  content property\n    if (typeof response.content === 
+           -  'string') {\n        return response.content;\n    }\n    
+           -  \n    // Format 8: n8n may wrap in a 'json' property\n    
+           -  if (response.json) {\n        return 
+           -  extractText(response.json);\n    }\n    \n    // Format 9: 
+           -  n8n may wrap in a 'data' property\n    if (response.data) 
+           -  {\n        return extractText(response.data);\n    }\n    
+           -  \n    // Format 10: Check if the response has a 'response' 
+           -  property (double-wrapped)\n    if (response.response) {\n  
+           -        return extractText(response.response);\n    }\n    \n
+           -      return null;\n}\n\n// Try to extract from the AI 
+           -  response\nhumanizedComment = extractText(item);\n\n// If 
+           -  extraction failed, try mainComment from context\nif 
+           -  (!humanizedComment && context.mainComment) {\n    
+           -  humanizedComment = context.mainComment;\n}\n\n// Last 
+           -  resort fallback\nif (!humanizedComment) {\n    
+           -  humanizedComment = \"Error: Could not extract 
+           -  comment\";\n}\n\n// SAFETY CHECK: Ensure humanizedComment 
+           -  is a clean string, not JSON\nif (typeof humanizedComment 
+           -  === 'string') {\n    const trimmed = 
+           -  humanizedComment.trim();\n    if (trimmed.startsWith('{') 
+           -  || trimmed.startsWith('[')) {\n        try {\n            
+           -  const parsed = JSON.parse(trimmed);\n            const 
+           -  extracted = extractText(parsed);\n            if (extracted
+           -   && typeof extracted === 'string' && 
+           -  !extracted.trim().startsWith('{')) {\n                
+           -  humanizedComment = extracted;\n            }\n        } 
+           -  catch (e) {\n            // Not valid JSON, keep as is\n   
+           -       }\n    }\n}\n\n// Ensure it is a string (avoid literal
+           -   \"undefined\")\nhumanizedComment = String(humanizedComment
+           -   || '');\n\n// FINAL SAFETY: If still looks like raw API 
+           -  response, extract brutally\nif 
+           -  (humanizedComment.includes('\"output\":') && 
+           -  humanizedComment.includes('\"content\":')) {\n    const 
+           -  textMatch = humanizedComment.match(/\"text\"\\s*:\\s*\"((?:
+           -  [^\"\\\\]|\\\\.)*)\"/);\n    if (textMatch && textMatch[1])
+           -   {\n        humanizedComment = 
+           -  textMatch[1].replace(/\\\\n/g, '\\n').replace(/\\\\\"/g, 
+           -  '\"').replace(/\\\\\\\\/g, '\\\\');\n    }\n}\n\
+           -  nconst finalCharCount = humanizedComment.length;\nconst 
+           -  currentIteration = context.currentIteration || 1;\nconst 
+           -  conversationHistory = context.conversationHistory || 
+           -  [];\n\n// 3. Calculate Diff\nlet diffSummary = null;\nif 
+           -  (conversationHistory.length > 0) {\n  const previousComment
+           -   = conversationHistory[conversationHistory.length - 
+           -  1].comment;\n  const previousLength = 
+           -  previousComment.length;\n  const lengthDiff = 
+           -  finalCharCount - previousLength;\n  const lengthDiffPercent
+           -   = previousLength > 0 ? Math.round((lengthDiff / 
+           -  previousLength) * 100) : 0;\n  \n  diffSummary = {\n    
+           -  previousLength,\n    currentLength: finalCharCount,\n    
+           -  lengthDiff,\n    lengthDiffPercent,\n    lengthChange: 
+           -  lengthDiff > 0 ? 'увеличен' : lengthDiff < 0 ? 'сокращён' :
+           -   'без изменений'\n  };\n}\n\n// 4. RETURN MERGED 
+           -  DATA\nreturn {\n  json: {\n    ...context, // <--- This 
+           -  restores sessionId, profile, and history!\n    
+           -  humanizedComment,\n    finalCharCount,\n    diffSummary,\n 
+           -     readyForApproval: true\n  }\n};"
+       296 +          "jsCode": "// 1. RECOVER CONTEXT (Critical Fix)\n//
+           +   The \"Humanize Comment (GPT)\" node swallowed the 
+           +  sessionId and profile.\n// We must fetch them from the node
+           +   BEFORE the AI.\nconst contextNode = 'Build Humanize 
+           +  Prompt';\nlet context = {};\ntry {\n   // Try to grab the 
+           +  data that went INTO the AI agent\n   if 
+           +  ($items(contextNode).length > 0) {\n    context = 
+           +  $items(contextNode)[0].json;\n  } else {\n    context = 
+           +  $node[contextNode].json;\n  }\n} catch (e) {\n  
+           +  console.log(\"Warning: Could not recover context from 
+           +  previous node\");\n}\n\n// 2. Extract Humanized Comment 
+           +  with ROBUST extraction\nconst item = $input.item.json;\nlet
+           +   humanizedComment = '';\n\n// Helper function to extract 
+           +  text from various AI response formats\nfunction 
+           +  extractText(response) {\n    if (!response) return null;\n 
+           +     \n    // If response is a string, check if it's JSON 
+           +  that needs parsing\n    if (typeof response === 'string') 
+           +  {\n        const trimmed = response.trim();\n        if 
+           +  (trimmed.startsWith('{') || trimmed.startsWith('[')) {\n   
+           +           try {\n                const parsed = 
+           +  JSON.parse(trimmed);\n                return 
+           +  extractText(parsed);\n            } catch (e) {\n          
+           +        return response;\n            }\n        }\n        
+           +  return response;\n    }\n    \n    // If not an object, 
+           +  return null\n    if (typeof response !== 'object' || 
+           +  response === null) {\n        return null;\n    }\n    \n  
+           +    // Format 1: OpenAI Responses API - 
+           +  output.content[0].text (PRIMARY FORMAT for LangChain OpenAI
+           +   node v2)\n    if (response.output?.content && 
+           +  Array.isArray(response.output.content)) {\n        for 
+           +  (const contentItem of response.output.content) {\n         
+           +     if (contentItem?.text) {\n                return 
+           +  contentItem.text;\n            }\n            if 
+           +  (contentItem?.type === 'output_text' && contentItem?.text) 
+           +  {\n                return contentItem.text;\n            
+           +  }\n        }\n    }\n    \n    // Format 2: Direct 
+           +  output.text (simplified)\n    if (response.output?.text && 
+           +  typeof response.output.text === 'string') {\n        return
+           +   response.output.text;\n    }\n    \n    // Format 3: If 
+           +  output itself is a string\n    if (typeof response.output 
+           +  === 'string') {\n        const trimmedOutput = 
+           +  response.output.trim();\n        if 
+           +  (trimmedOutput.startsWith('{') || 
+           +  trimmedOutput.startsWith('[')) {\n            try {\n      
+           +            const parsedOutput = JSON.parse(trimmedOutput);\n
+           +                  return extractText(parsedOutput);\n        
+           +      } catch (e) {\n                return 
+           +  response.output;\n            }\n        }\n        return 
+           +  response.output;\n    }\n    \n    // Format 4: Standard 
+           +  chat completion - message.content\n    if 
+           +  (response.message?.content && typeof 
+           +  response.message.content === 'string') {\n        return 
+           +  response.message.content;\n    }\n    \n    // Format 5: 
+           +  OpenAI Chat Completions API - choices[0].message.content\n 
+           +     if (response.choices?.[0]?.message?.content) {\n        
+           +  return response.choices[0].message.content;\n    }\n    \n 
+           +     // Format 6: Direct text property\n    if (typeof 
+           +  response.text === 'string') {\n        return 
+           +  response.text;\n    }\n    \n    // Format 7: Direct 
+           +  content property\n    if (typeof response.content === 
+           +  'string') {\n        return response.content;\n    }\n    
+           +  \n    // Format 8: n8n may wrap in a 'json' property\n    
+           +  if (response.json) {\n        return 
+           +  extractText(response.json);\n    }\n    \n    // Format 9: 
+           +  n8n may wrap in a 'data' property\n    if (response.data) 
+           +  {\n        return extractText(response.data);\n    }\n    
+           +  \n    // Format 10: Check if the response has a 'response' 
+           +  property (double-wrapped)\n    if (response.response) {\n  
+           +        return extractText(response.response);\n    }\n    \n
+           +      return null;\n}\n\n// Try to extract from the AI 
+           +  response\nhumanizedComment = extractText(item);\n\n// If 
+           +  extraction failed, try mainComment from context\nif 
+           +  (!humanizedComment && context.mainComment) {\n    
+           +  humanizedComment = context.mainComment;\n}\n\n// Last 
+           +  resort fallback\nif (!humanizedComment) {\n    
+           +  humanizedComment = \"Error: Could not extract 
+           +  comment\";\n}\n\n// SAFETY CHECK: Ensure humanizedComment 
+           +  is a clean string, not JSON\nif (typeof humanizedComment 
+           +  === 'string') {\n    const trimmed = 
+           +  humanizedComment.trim();\n    if (trimmed.startsWith('{') 
+           +  || trimmed.startsWith('[')) {\n        try {\n            
+           +  const parsed = JSON.parse(trimmed);\n            const 
+           +  extracted = extractText(parsed);\n            if (extracted
+           +   && typeof extracted === 'string' && 
+           +  !extracted.trim().startsWith('{')) {\n                
+           +  humanizedComment = extracted;\n            }\n        } 
+           +  catch (e) {\n            // Not valid JSON, keep as is\n   
+           +       }\n    }\n}\n\n// Ensure it is a string (avoid literal
+           +   \"undefined\")\nhumanizedComment = String(humanizedComment
+           +   || '');\n\n// FINAL SAFETY: If still looks like raw API 
+           +  response, extract brutally\nif 
+           +  (humanizedComment.includes('\"output\":') && 
+           +  humanizedComment.includes('\"content\":')) {\n    // 
+           +  Method 1: Standard JSON text extraction (handles escaped 
+           +  newlines)\n    let 
+           +  textMatch = humanizedComment.match(/\"text\"\\s*:\\s*\"((?:
+           +  [^\"\\\\]|\\\\.)*)\"/);\n    if (textMatch && textMatch[1])
+           +   {\n        humanizedComment = 
+           +  textMatch[1].replace(/\\\\n/g, '\\n').replace(/\\\\\"/g, 
+           +  '\"').replace(/\\\\\\\\/g, '\\\\');\n    } else {\n
+           +          // Method 2: Handle multiline text with literal 
+           +  newlines (malformed JSON)\n        const textStartMatch = 
+           +  humanizedComment.match(/\"text\"\\s*:\\s*\"/);\n        if 
+           +  (textStartMatch) {\n            const startIdx = 
+           +  textStartMatch.index + textStartMatch[0].length;\n         
+           +     // Find the closing pattern: \"}] or \"}]}\n
+           +              let endPatterns = ['\
+           +  "\\}\\]\\}', '\"}]', '\",', '\"\\}'];\n            let 
+           +  endIdx = humanizedComment.length;\n            for (const 
+           +  pattern of endPatterns) {\n                const regex = 
+           +  new RegExp(pattern);\n                const match = 
+           +  humanizedComment.substring(startIdx).match(regex);\n       
+           +           if (match && (startIdx + match.index) < endIdx) 
+           +  {\n                    endIdx = startIdx + match.index;\n  
+           +                }\n            }\n            if (endIdx > 
+           +  startIdx) {\n                humanizedComment = 
+           +  humanizedComment.substring(startIdx, endIdx)\n             
+           +         .replace(/\\\\n/g, '\\n')\n                    
+           +  .replace(/\\\\\"/g, '\"')\n                    
+           +  .replace(/\\\\\\\\/g, '\\\\');\n            }\n        }\n 
+           +     }\n}\n\
+           +  nconst finalCharCount = humanizedComment.length;\nconst 
+           +  currentIteration = context.currentIteration || 1;\nconst 
+           +  conversationHistory = context.conversationHistory || 
+           +  [];\n\n// 3. Calculate Diff\nlet diffSummary = null;\nif 
+           +  (conversationHistory.length > 0) {\n  const previousComment
+           +   = conversationHistory[conversationHistory.length - 
+           +  1].comment;\n  const previousLength = 
+           +  previousComment.length;\n  const lengthDiff = 
+           +  finalCharCount - previousLength;\n  const lengthDiffPercent
+           +   = previousLength > 0 ? Math.round((lengthDiff / 
+           +  previousLength) * 100) : 0;\n  \n  diffSummary = {\n    
+           +  previousLength,\n    currentLength: finalCharCount,\n    
+           +  lengthDiff,\n    lengthDiffPercent,\n    lengthChange: 
+           +  lengthDiff > 0 ? 'увеличен' : lengthDiff < 0 ? 'сокращён' :
+           +   'без изменений'\n  };\n}\n\n// 4. RETURN MERGED 
+           +  DATA\nreturn {\n  json: {\n    ...context, // <--- This 
+           +  restores sessionId, profile, and history!\n    
+           +  humanizedComment,\n    finalCharCount,\n    diffSummary,\n 
+           +     readyForApproval: true\n  }\n};"
+       297          },
+       298          "id": "05ef0ec3-8fc0-4821-b4ec-0bf3298b66f5",
+       299          "name": "Calculate Revision Diff",
+
+● Now let me also update the "Extract Comment" node with the same improved
+  extraction:
+
+● Update(ceo-comment-writer-workflow-multi.json)
+  ⎿  Updated ceo-comment-writer-workflow-multi.json with 1 addition and 1 
+     removal
+       230        },
+       231        {
+       232          "parameters": {
+       233 -          "jsCode": "// 1. Retrieve the original context 
+           -  (Profile, SessionId, etc.) from the node BEFORE the AI 
+           -  Agent\nconst contextNodeName = 'Build AI Agent Prompt with 
+           -  Memory';\n\nlet previousNodeData = {};\ntry {\n  // Try to 
+           -  get data from the specific previous node\n  if 
+           -  ($items(contextNodeName).length > 0) {\n    
+           -  previousNodeData = $items(contextNodeName)[0].json;\n  } 
+           -  else {\n    // Fallback: if $items fails, try basic 
+           -  back-referencing\n    previousNodeData = 
+           -  $node[contextNodeName]?.json || {};\n  }\n} catch (e) {\n  
+           -  // Safe fallback if node connection is tricky\n  
+           -  console.log('Context warning');\n}\n\n// 2. Get AI Response
+           -   with ROBUST extraction\nconst aiItem = 
+           -  $input.item.json;\nlet aiResponse = '';\n\n// Helper 
+           -  function to extract text from various AI response 
+           -  formats\nfunction extractTextFromAI(response) {\n    if 
+           -  (!response) return null;\n    \n    // If response is a 
+           -  string, check if it's JSON that needs parsing\n    if 
+           -  (typeof response === 'string') {\n        const trimmed = 
+           -  response.trim();\n        if (trimmed.startsWith('{') || 
+           -  trimmed.startsWith('[')) {\n            try {\n            
+           -      const parsed = JSON.parse(trimmed);\n                
+           -  return extractTextFromAI(parsed);\n            } catch (e) 
+           -  {\n                return response;\n            }\n       
+           -   }\n        return response;\n    }\n    \n    // If not an
+           -   object, return null\n    if (typeof response !== 'object' 
+           -  || response === null) {\n        return null;\n    }\n    
+           -  \n    // Format 1: OpenAI Responses API - 
+           -  output.content[0].text (PRIMARY FORMAT for LangChain OpenAI
+           -   node v2)\n    if (response.output?.content && 
+           -  Array.isArray(response.output.content)) {\n        for 
+           -  (const contentItem of response.output.content) {\n         
+           -     if (contentItem?.text) {\n                return 
+           -  contentItem.text;\n            }\n            if 
+           -  (contentItem?.type === 'output_text' && contentItem?.text) 
+           -  {\n                return contentItem.text;\n            
+           -  }\n        }\n    }\n    \n    // Format 2: Direct 
+           -  output.text (simplified)\n    if (response.output?.text && 
+           -  typeof response.output.text === 'string') {\n        return
+           -   response.output.text;\n    }\n    \n    // Format 3: If 
+           -  output itself is a string\n    if (typeof response.output 
+           -  === 'string') {\n        const trimmedOutput = 
+           -  response.output.trim();\n        if 
+           -  (trimmedOutput.startsWith('{') || 
+           -  trimmedOutput.startsWith('[')) {\n            try {\n      
+           -            const parsedOutput = JSON.parse(trimmedOutput);\n
+           -                  return extractTextFromAI(parsedOutput);\n  
+           -            } catch (e) {\n                return 
+           -  response.output;\n            }\n        }\n        return 
+           -  response.output;\n    }\n    \n    // Format 4: Standard 
+           -  chat completion - message.content\n    if 
+           -  (response.message?.content && typeof 
+           -  response.message.content === 'string') {\n        return 
+           -  response.message.content;\n    }\n    \n    // Format 5: 
+           -  OpenAI Chat Completions API - choices[0].message.content\n 
+           -     if (response.choices?.[0]?.message?.content) {\n        
+           -  return response.choices[0].message.content;\n    }\n    \n 
+           -     // Format 6: Direct text property\n    if (typeof 
+           -  response.text === 'string') {\n        return 
+           -  response.text;\n    }\n    \n    // Format 7: Direct 
+           -  content property\n    if (typeof response.content === 
+           -  'string') {\n        return response.content;\n    }\n    
+           -  \n    // Format 8: n8n may wrap in a 'json' property\n    
+           -  if (response.json) {\n        return 
+           -  extractTextFromAI(response.json);\n    }\n    \n    // 
+           -  Format 9: n8n may wrap in a 'data' property\n    if 
+           -  (response.data) {\n        return 
+           -  extractTextFromAI(response.data);\n    }\n    \n    return 
+           -  null;\n}\n\n// Try to extract the AI response 
+           -  text\naiResponse = extractTextFromAI(aiItem);\n\n// 
+           -  Fallback: if extraction failed, try to stringify\nif 
+           -  (!aiResponse) {\n    try { aiResponse = 
+           -  JSON.stringify(aiItem); } catch(e) { aiResponse = ''; 
+           -  }\n}\n\naiResponse = String(aiResponse || '');\n\n// 
+           -  SAFETY: If still looks like raw API response, extract 
+           -  brutally\nif (aiResponse.includes('\"output\":') && 
+           -  aiResponse.includes('\"content\":')) {\n    const 
+           -  textMatch = aiResponse.match(/\"text\"\\s*:\\s*\"((?:[^\"\\
+           -  \\]|\\\\.)*)\"/);\n    if (textMatch && textMatch[1]) {\n  
+           -        aiResponse = textMatch[1].replace(/\\\\n/g, 
+           -  '\\n').replace(/\\\\\"/g, '\"').replace(/\\\\\\\\/g, 
+           -  '\\\\');\n    }\n}\n\n// 
+           -  3. STRICT EXTRACTION (Updated)\n// Look for \"### 2. ... 
+           -  КОММЕНТАРИЙ\" (new format) but stay backward-compatible 
+           -  with \"6. ... КОММЕНТАРИЙ\"\n// Capture until the next 
+           -  numbered section header (### X.) or the end of the 
+           -  string\nlet mainComment = \"\";\nconst commentMatch = 
+           -  aiResponse.match(/###\\s*(?:2|6)\\.\\s*.*?(?:КОММЕНТАРИЙ|CO
+           -  MMENT)[^\\r\\n]*\\r?\\n([\\s\\S]*?)(?=\\r?\\n###\\s*\\d+\\.
+           -  \\s|$)/i);\n\nif (commentMatch && commentMatch[1]) {\n    
+           -  mainComment = commentMatch[1].trim();\n} else {\n    // 
+           -  Fallback: Try simpler match if numbered list is missing\n  
+           -    const simpleMatch = aiResponse.match(/(?:КОММЕНТАРИЙ|The 
+           -  Comment):?[\\s\\S]*?\\n([\\s\\S]*?)$/i);\n    mainComment =
+           -   simpleMatch ? simpleMatch[1].trim() : aiResponse;\n}\n\n//
+           -   4. LENGTH SAFETY VALVE (New)\n// Telegram limit is 4096. 
+           -  We reserve space for headers/metadata.\n// If comment is > 
+           -  3500 chars, we truncate it to prevent crash.\nif 
+           -  (mainComment.length > 3500) {\n    mainComment = 
+           -  mainComment.substring(0, 3500) + \"\\n\\n[...Text Truncated
+           -   by Telegram Limit...]\";\n}\n\nconst changesMatch = 
+           -  aiResponse.match(/###\\s*10\\.\\s*ИЗМЕНЕНИЯ[^\\r\\n]*\\r?\\
+           -  n([\\s\\S]*?)(?=\\r?\\n###\\s*\\d+\\.\\s|$)/i);\nconst 
+           -  changesSummary = changesMatch ? changesMatch[1].trim() : 
+           -  null;\n\nreturn {\n  json: {\n    ...previousNodeData, \n  
+           -    fullDraftResponse: aiResponse,\n    mainComment,\n    
+           -  characterCount: mainComment.length,\n    changesSummary\n  
+           -  }\n};"
+       233 +          "jsCode": "// 1. Retrieve the original context 
+           +  (Profile, SessionId, etc.) from the node BEFORE the AI 
+           +  Agent\nconst contextNodeName = 'Build AI Agent Prompt with 
+           +  Memory';\n\nlet previousNodeData = {};\ntry {\n  // Try to 
+           +  get data from the specific previous node\n  if 
+           +  ($items(contextNodeName).length > 0) {\n    
+           +  previousNodeData = $items(contextNodeName)[0].json;\n  } 
+           +  else {\n    // Fallback: if $items fails, try basic 
+           +  back-referencing\n    previousNodeData = 
+           +  $node[contextNodeName]?.json || {};\n  }\n} catch (e) {\n  
+           +  // Safe fallback if node connection is tricky\n  
+           +  console.log('Context warning');\n}\n\n// 2. Get AI Response
+           +   with ROBUST extraction\nconst aiItem = 
+           +  $input.item.json;\nlet aiResponse = '';\n\n// Helper 
+           +  function to extract text from various AI response 
+           +  formats\nfunction extractTextFromAI(response) {\n    if 
+           +  (!response) return null;\n    \n    // If response is a 
+           +  string, check if it's JSON that needs parsing\n    if 
+           +  (typeof response === 'string') {\n        const trimmed = 
+           +  response.trim();\n        if (trimmed.startsWith('{') || 
+           +  trimmed.startsWith('[')) {\n            try {\n            
+           +      const parsed = JSON.parse(trimmed);\n                
+           +  return extractTextFromAI(parsed);\n            } catch (e) 
+           +  {\n                return response;\n            }\n       
+           +   }\n        return response;\n    }\n    \n    // If not an
+           +   object, return null\n    if (typeof response !== 'object' 
+           +  || response === null) {\n        return null;\n    }\n    
+           +  \n    // Format 1: OpenAI Responses API - 
+           +  output.content[0].text (PRIMARY FORMAT for LangChain OpenAI
+           +   node v2)\n    if (response.output?.content && 
+           +  Array.isArray(response.output.content)) {\n        for 
+           +  (const contentItem of response.output.content) {\n         
+           +     if (contentItem?.text) {\n                return 
+           +  contentItem.text;\n            }\n            if 
+           +  (contentItem?.type === 'output_text' && contentItem?.text) 
+           +  {\n                return contentItem.text;\n            
+           +  }\n        }\n    }\n    \n    // Format 2: Direct 
+           +  output.text (simplified)\n    if (response.output?.text && 
+           +  typeof response.output.text === 'string') {\n        return
+           +   response.output.text;\n    }\n    \n    // Format 3: If 
+           +  output itself is a string\n    if (typeof response.output 
+           +  === 'string') {\n        const trimmedOutput = 
+           +  response.output.trim();\n        if 
+           +  (trimmedOutput.startsWith('{') || 
+           +  trimmedOutput.startsWith('[')) {\n            try {\n      
+           +            const parsedOutput = JSON.parse(trimmedOutput);\n
+           +                  return extractTextFromAI(parsedOutput);\n  
+           +            } catch (e) {\n                return 
+           +  response.output;\n            }\n        }\n        return 
+           +  response.output;\n    }\n    \n    // Format 4: Standard 
+           +  chat completion - message.content\n    if 
+           +  (response.message?.content && typeof 
+           +  response.message.content === 'string') {\n        return 
+           +  response.message.content;\n    }\n    \n    // Format 5: 
+           +  OpenAI Chat Completions API - choices[0].message.content\n 
+           +     if (response.choices?.[0]?.message?.content) {\n        
+           +  return response.choices[0].message.content;\n    }\n    \n 
+           +     // Format 6: Direct text property\n    if (typeof 
+           +  response.text === 'string') {\n        return 
+           +  response.text;\n    }\n    \n    // Format 7: Direct 
+           +  content property\n    if (typeof response.content === 
+           +  'string') {\n        return response.content;\n    }\n    
+           +  \n    // Format 8: n8n may wrap in a 'json' property\n    
+           +  if (response.json) {\n        return 
+           +  extractTextFromAI(response.json);\n    }\n    \n    // 
+           +  Format 9: n8n may wrap in a 'data' property\n    if 
+           +  (response.data) {\n        return 
+           +  extractTextFromAI(response.data);\n    }\n    \n    return 
+           +  null;\n}\n\n// Try to extract the AI response 
+           +  text\naiResponse = extractTextFromAI(aiItem);\n\n// 
+           +  Fallback: if extraction failed, try to stringify\nif 
+           +  (!aiResponse) {\n    try { aiResponse = 
+           +  JSON.stringify(aiItem); } catch(e) { aiResponse = ''; 
+           +  }\n}\n\naiResponse = String(aiResponse || '');\n\n// 
+           +  SAFETY: If still looks like raw API response, extract 
+           +  brutally\nif (aiResponse.includes('\"output\":') && 
+           +  aiResponse.includes('\"content\":')) {\n    // 
+           +  Method 1: Standard JSON text extraction (handles escaped 
+           +  newlines)\n    let 
+           +  textMatch = aiResponse.match(/\"text\"\\s*:\\s*\"((?:[^\"\\
+           +  \\]|\\\\.)*)\"/);\n    if (textMatch && textMatch[1]) {\n  
+           +        aiResponse = textMatch[1].replace(/\\\\n/g, 
+           +  '\\n').replace(/\\\\\"/g, '\"').replace(/\\\\\\\\/g, 
+           +  '\\\\');\n    } else {\n
+           +          // Method 2: Handle multiline text with literal 
+           +  newlines (malformed JSON)\n        const textStartMatch = 
+           +  aiResponse.match(/\"text\"\\s*:\\s*\"/);\n        if 
+           +  (textStartMatch) {\n            const startIdx = 
+           +  textStartMatch.index + textStartMatch[0].length;\n         
+           +     // Find the closing pattern: \"}] or \"}]}\n
+           +              let endPatterns = ['\
+           +  "\\}\\]\\}', '\"}]', '\",', '\"\\}'];\n
+           +              let endIdx = aiResponse.length;\n            
+           +  for (const pattern of endPatterns) {\n                const
+           +   regex = new RegExp(pattern);\n                const match 
+           +  = aiResponse.substring(startIdx).match(regex);\n           
+           +       if (match && (startIdx + match.index) < endIdx) {\n   
+           +                   endIdx = startIdx + match.index;\n        
+           +          }\n            }\n            if (endIdx > 
+           +  startIdx) {\n                aiResponse = 
+           +  aiResponse.substring(startIdx, endIdx)\n                   
+           +   .replace(/\\\\n/g, 
+           +  '\\n')\n                    .replace(/\\\\\"/g, '\"')\n    
+           +                  .replace(/\\\\\\\\/g, '\\\\');\n           
+           +   }\n        }\n    }\n}\n\n// 
+           +  3. STRICT EXTRACTION (Updated)\n// Look for \"### 2. ... 
+           +  КОММЕНТАРИЙ\" (new format) but stay backward-compatible 
+           +  with \"6. ... КОММЕНТАРИЙ\"\n// Capture until the next 
+           +  numbered section header (### X.) or the end of the 
+           +  string\nlet mainComment = \"\";\nconst commentMatch = 
+           +  aiResponse.match(/###\\s*(?:2|6)\\.\\s*.*?(?:КОММЕНТАРИЙ|CO
+           +  MMENT)[^\\r\\n]*\\r?\\n([\\s\\S]*?)(?=\\r?\\n###\\s*\\d+\\.
+           +  \\s|$)/i);\n\nif (commentMatch && commentMatch[1]) {\n    
+           +  mainComment = commentMatch[1].trim();\n} else {\n    // 
+           +  Fallback: Try simpler match if numbered list is missing\n  
+           +    const simpleMatch = aiResponse.match(/(?:КОММЕНТАРИЙ|The 
+           +  Comment):?[\\s\\S]*?\\n([\\s\\S]*?)$/i);\n    mainComment =
+           +   simpleMatch ? simpleMatch[1].trim() : aiResponse;\n}\n\n//
+           +   4. LENGTH SAFETY VALVE (New)\n// Telegram limit is 4096. 
+           +  We reserve space for headers/metadata.\n// If comment is > 
+           +  3500 chars, we truncate it to prevent crash.\nif 
+           +  (mainComment.length > 3500) {\n    mainComment = 
+           +  mainComment.substring(0, 3500) + \"\\n\\n[...Text Truncated
+           +   by Telegram Limit...]\";\n}\n\nconst changesMatch = 
+           +  aiResponse.match(/###\\s*10\\.\\s*ИЗМЕНЕНИЯ[^\\r\\n]*\\r?\\
+           +  n([\\s\\S]*?)(?=\\r?\\n###\\s*\\d+\\.\\s|$)/i);\nconst 
+           +  changesSummary = changesMatch ? changesMatch[1].trim() : 
+           +  null;\n\nreturn {\n  json: {\n    ...previousNodeData, \n  
+           +    fullDraftResponse: aiResponse,\n    mainComment,\n    
+           +  characterCount: mainComment.length,\n    changesSummary\n  
+           +  }\n};"
+       234          },
+       235          "id": "cc89f3a5-216b-408e-9032-51bdcc3f8fc6",
+       236          "name": "Extract Comment",
+
+● Done! I've enhanced the extraction logic in both nodes:
+
+  Updated Extraction Logic
+
+  Problem Identified
+
+  The JSON response contains malformed structure with literal newlines
+  instead of escaped \n. This causes:
+  1. JSON.parse() to fail (malformed JSON)
+  2. Standard regex /"text":\s*"((?:[^"\\]|\\.)*)"/  to fail at first
+  literal newline
+
+  Solution Applied
+
+  Added two-method extraction in both "Extract Comment" and "Calculate
+  Revision Diff" nodes:
+
+  Method 1: Standard regex for properly escaped JSON:
+  /"text"\s*:\s*"((?:[^"\\]|\\.)*)"/
+
+  Method 2: Position-based extraction for malformed JSON with literal
+  newlines:
+  // Find "text":" and extract everything until closing patterns
+  const textStartMatch = response.match(/"text"\s*:\s*"/);
+  const startIdx = textStartMatch.index + textStartMatch[0].length;
+  // Extract until "}]}", "}]", ",", or "}"
+
+  This handles:
+  - ✅ Standard JSON with \n escaped newlines
+  - ✅ Malformed JSON with literal newlines
+  - ✅ Various closing patterns in the JSON structure
+
+  Files Modified
+
+  - ceo-comment-writer-workflow-multi.json
+    - "Extract Comment" node: Enhanced SAFETY extraction
+    - "Calculate Revision Diff" node: Enhanced FINAL SAFETY extraction
+
+  Re-import the workflow to test the fix.
+
+> Excellent. The problem solved. You're a genius. 
+
+● Glad it's working now! The root issue was that the n8n LangChain OpenAI
+  node was outputting malformed JSON with literal newlines, which broke
+  standard parsing. The position-based extraction as a fallback handles
+  those edge cases.
+
+  If you run into any other issues with the workflow, just let me know.
+
+
 ╭─── Claude Code v2.0.47 ──────────────────────────────────────────────────────╮
 │                                                    │ Tips for getting        │
 │                 Welcome back Slava!                │ started                 │
@@ -1208,6 +2622,9 @@ delete everything not related to current version of the workflow.
     └ Total: 3.4k tokens
 
     
+
+
+
 
 
 

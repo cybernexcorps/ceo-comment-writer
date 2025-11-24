@@ -1,37 +1,49 @@
 {
-  "name": "CEO Comment Writer v2.3 (AI Agent with Memory)",
+  "name": "DDVB Comment Writer v2.9 (Safe Mode)",
   "nodes": [
     {
       "parameters": {
-        "updates": ["message"]
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
       },
-      "id": "telegram-trigger",
+      "id": "007c33fd-4700-4008-927d-91109ebe54ac",
       "name": "Telegram Trigger",
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1.1,
-      "position": [240, 300],
+      "position": [
+        -3936,
+        464
+      ],
       "webhookId": "telegram-webhook-ceo-comment-multi",
       "credentials": {
         "telegramApi": {
-          "id": "telegram_credentials",
-          "name": "Telegram Bot"
+          "id": "otGunkSSnwzGsnSm",
+          "name": "DDVB PR Comment Test Bot"
         }
       }
     },
     {
       "parameters": {
-        "updates": ["callback_query"]
+        "updates": [
+          "callback_query"
+        ],
+        "additionalFields": {}
       },
-      "id": "telegram-callback-trigger",
+      "id": "55babf1e-f4f9-4b18-98aa-a185781f7e33",
       "name": "Telegram Callback Query Trigger",
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1.1,
-      "position": [240, 600],
+      "position": [
+        -3936,
+        768
+      ],
       "webhookId": "telegram-callback-ceo-comment-multi",
       "credentials": {
         "telegramApi": {
-          "id": "telegram_credentials",
-          "name": "Telegram Bot"
+          "id": "otGunkSSnwzGsnSm",
+          "name": "DDVB PR Comment Test Bot"
         }
       }
     },
@@ -39,11 +51,14 @@
       "parameters": {
         "jsCode": "// Parse incoming Telegram message with PERSON field support\nconst messageText = $input.item.json.message.text || '';\nconst chatId = $input.item.json.message.chat.id;\nconst userId = $input.item.json.message.from.id;\n\n// Initialize variables\nlet person = 'maria_arkhangelskaya';\nlet media = '';\nlet question = '';\nlet context = '';\nlet targetLength = '1500-2000';\nlet audience = '';\nlet urgency = '';\nlet specialConsiderations = '';\n\n// Parse structured input\nconst lines = messageText.split('\\n');\n\nfor (const line of lines) {\n  if (line.includes('PERSON:') || line.includes('ПЕРСОНА:')) {\n    const rawPerson = line.split(/PERSON:|ПЕРСОНА:/i)[1].trim().toLowerCase();\n    person = normalizePerson(rawPerson);\n  } else if (line.includes('МЕДИА:')) {\n    media = line.split('МЕДИА:')[1].trim();\n  } else if (line.includes('ВОПРОС:')) {\n    question = line.split('ВОПРОС:')[1].trim();\n  } else if (line.includes('КОНТЕКСТ:')) {\n    context = line.split('КОНТЕКСТ:')[1].trim();\n  } else if (line.includes('ЦЕЛЕВАЯ ДЛИНА:')) {\n    targetLength = line.split('ЦЕЛЕВАЯ ДЛИНА:')[1].trim();\n  } else if (line.includes('АУДИТОРИЯ:')) {\n    audience = line.split('АУДИТОРИЯ:')[1].trim();\n  } else if (line.includes('СРОЧНОСТЬ:')) {\n    urgency = line.split('СРОЧНОСТЬ:')[1].trim();\n  } else if (line.includes('ОСОБЫЕ СООБРАЖЕНИЯ:')) {\n    specialConsiderations = line.split('ОСОБЫЕ СООБРАЖЕНИЯ:')[1].trim();\n  }\n}\n\nfunction normalizePerson(rawInput) {\n  const personMap = {\n    'maria': 'maria_arkhangelskaya',\n    'мария': 'maria_arkhangelskaya',\n    'maria arkhangelskaya': 'maria_arkhangelskaya',\n    'мария архангельская': 'maria_arkhangelskaya',\n    'ilya': 'ilya_morozov',\n    'илья': 'ilya_morozov',\n    'ilya morozov': 'ilya_morozov',\n    'илья морозов': 'ilya_morozov'\n  };\n  return personMap[rawInput] || 'maria_arkhangelskaya';\n}\n\nconst missingFields = [];\nif (!media) missingFields.push('МЕДИА');\nif (!question) missingFields.push('ВОПРОС');\nif (!context) missingFields.push('КОНТЕКСТ');\n\nreturn {\n  json: {\n    chatId,\n    userId,\n    messageId: $input.item.json.message.message_id,\n    sessionId: `${userId}_${Date.now()}`,\n    person,\n    media,\n    question,\n    context,\n    targetLength,\n    audience,\n    urgency,\n    specialConsiderations,\n    missingFields,\n    hasMissingFields: missingFields.length > 0,\n    originalMessage: messageText\n  }\n};"
       },
-      "id": "parse-request",
+      "id": "143413ad-b50d-40d3-abd2-3ab4c72f1503",
       "name": "Parse Request with PERSON",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [440, 300]
+      "position": [
+        -3728,
+        464
+      ]
     },
     {
       "parameters": {
@@ -56,236 +71,332 @@
           ]
         }
       },
-      "id": "check-required-fields",
+      "id": "760f9f85-4c98-4c6b-ba3e-42847cdee9e1",
       "name": "Check Required Fields",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
-      "position": [640, 300]
+      "position": [
+        -3536,
+        464
+      ]
     },
     {
       "parameters": {
         "chatId": "={{ $json.chatId }}",
         "text": "=❌ Не хватает обязательных полей для создания комментария:\n\n{{ $json.missingFields.join(', ') }}\n\n📋 Пожалуйста, укажите:\n• PERSON: [maria / имя комментатора] (опционально)\n• МЕДИА: [Sostav.ru / Forbes Russia / RBC и т.д.]\n• ВОПРОС: [Точный вопрос журналиста]\n• КОНТЕКСТ: [Ссылка или краткое описание статьи]\n• ЦЕЛЕВАЯ ДЛИНА: [По умолчанию 1500-2000 знаков]",
-        "replyMarkup": "none"
+        "additionalFields": {}
       },
-      "id": "send-missing-fields",
+      "id": "132cfe5e-d701-4454-ac72-cc17c93423e9",
       "name": "Send Missing Fields Message",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
-      "position": [840, 180],
+      "position": [
+        -3328,
+        336
+      ],
+      "webhookId": "fa502246-9855-4e49-ba3f-4a5ff5f3dcb7",
       "credentials": {
         "telegramApi": {
-          "id": "telegram_credentials",
-          "name": "Telegram Bot"
+          "id": "otGunkSSnwzGsnSm",
+          "name": "DDVB PR Comment Test Bot"
         }
       }
-    },
-    {
-      "parameters": {
-        "jsCode": "// Load profile from JSON file\nconst person = $input.item.json.person || 'maria_arkhangelskaya';\nconst fs = require('fs');\nconst path = require('path');\n\nconst profilesDir = 'D:\\\\Downloads\\\\SynologyDrive\\\\DDVB Analytics\\\\marketing-automation-n8n\\\\ceo-comment-writer\\\\profiles';\nconst profilePath = path.join(profilesDir, `${person}.json`);\nconst defaultProfilePath = path.join(profilesDir, 'default.json');\n\nlet profile = null;\nlet profileLoadError = null;\n\ntry {\n  if (fs.existsSync(profilePath)) {\n    const profileData = fs.readFileSync(profilePath, 'utf-8');\n    profile = JSON.parse(profileData);\n  } else {\n    if (fs.existsSync(defaultProfilePath)) {\n      const profileData = fs.readFileSync(defaultProfilePath, 'utf-8');\n      profile = JSON.parse(profileData);\n      profileLoadError = `Profile '${person}' not found, using default profile`;\n    } else {\n      throw new Error(`Profile '${person}' not found and no default profile exists`);\n    }\n  }\n  \n  const requiredFields = ['name', 'title', 'expertise', 'communication_style', 'tone'];\n  for (const field of requiredFields) {\n    if (!profile[field]) {\n      throw new Error(`Profile '${person}' is missing required field: ${field}`);\n    }\n  }\n  \n} catch (error) {\n  profile = {\n    profile_id: 'maria_arkhangelskaya',\n    name: 'Maria Arkhangelskaya',\n    name_ru: 'Мария Архангельская',\n    title: 'CEO & Managing Partner of DDVB',\n    title_ru: 'Генеральный директор и управляющий партнёр DDVB',\n    company: 'DDVB',\n    expertise: ['Agency operations', 'Branding', 'Client relations'],\n    communication_style: 'Professional expert with systems-thinking approach',\n    tone: 'Authoritative yet warm, experience-based',\n    language: 'ru',\n    default_target_length: '1500-2000'\n  };\n  profileLoadError = `Failed to load profile: ${error.message}. Using minimal fallback.`;\n}\n\nreturn {\n  json: {\n    ...($input.item.json),\n    profile,\n    profileLoadError,\n    profileLoaded: true\n  }\n};"
-      },
-      "id": "load-profile",
-      "name": "Load Profile",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [840, 360]
     },
     {
       "parameters": {
         "jsCode": "// Initialize revision memory for new session\nconst sessionId = $input.item.json.sessionId;\nconst timestamp = new Date().toISOString();\n\n// Create memory structure\nconst memory = {\n  session_id: sessionId,\n  created_at: timestamp,\n  iterations: [],\n  current_iteration: 0,\n  status: 'active',\n  person: $input.item.json.person,\n  media: $input.item.json.media,\n  question: $input.item.json.question,\n  context: $input.item.json.context,\n  targetLength: $input.item.json.targetLength,\n  profile: $input.item.json.profile\n};\n\n// Store in workflow static data\nconst staticData = $getWorkflowStaticData('global');\nif (!staticData.sessions) {\n  staticData.sessions = {};\n}\nstaticData.sessions[sessionId] = memory;\n\nreturn {\n  json: {\n    ...($input.item.json),\n    memory,\n    memoryInitialized: true\n  }\n};"
       },
-      "id": "initialize-memory",
+      "id": "8f87c531-c266-4095-a0a6-85ef1ddb76fb",
       "name": "Initialize Revision Memory",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1040, 360]
+      "position": [
+        -3024,
+        512
+      ]
     },
     {
       "parameters": {
         "chatId": "={{ $json.chatId }}",
         "text": "=✅ Запрос принят!\n\n👤 Профиль: {{ $json.profile.name_ru || $json.profile.name }} ({{ $json.profile.title_ru || $json.profile.title }})\n📰 Медиа: {{ $json.media }}\n❓ Вопрос: {{ $json.question }}\n📝 Целевая длина: {{ $json.targetLength }} знаков\n\n{{ $json.profileLoadError ? '⚠️ ' + $json.profileLoadError + '\\n\\n' : '' }}🔍 Начинаю исследование и подготовку комментария...",
-        "replyMarkup": "none"
+        "additionalFields": {}
       },
-      "id": "send-confirmation",
+      "id": "e0578098-a4a9-4109-8670-f7be721905ba",
       "name": "Send Confirmation with Profile",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
-      "position": [1240, 360],
+      "position": [
+        -2864,
+        304
+      ],
+      "webhookId": "7e46a043-a7b6-4c1c-a766-488165e1ed72",
       "credentials": {
         "telegramApi": {
-          "id": "telegram_credentials",
-          "name": "Telegram Bot"
+          "id": "otGunkSSnwzGsnSm",
+          "name": "DDVB PR Comment Test Bot"
         }
       }
     },
     {
       "parameters": {
-        "jsCode": "// Prepare research query for article/context\nconst context = $input.item.json.context;\nconst question = $input.item.json.question;\nconst media = $input.item.json.media;\n\nreturn {\n  json: {\n    ...($input.item.json),\n    researchQuery: `Analyze this context for a media comment request:\n\nContext: ${context}\nQuestion: ${question}\nMedia Outlet: ${media}\n\nProvide:\n1. Main topic and key points from the context\n2. Relevant facts, statistics, or trends\n3. Industry implications\n4. Any notable quotes or perspectives mentioned`\n  }\n};"
+        "jsCode": "// Prepare research query\nconst context = $input.item.json.context || '';\nconst question = $input.item.json.question;\nconst media = $input.item.json.media;\nconst sessionId = $input.item.json.sessionId;\n\n// Smart Link Detection\nconst urlRegex = /(https?:\\/\\/[^\\s]+)/g;\nconst foundUrls = context.match(urlRegex);\nconst hasUrl = !!foundUrls;\n\nlet researchInstructions = \"\";\n\nif (hasUrl) {\n    researchInstructions = `\n    CRITICAL INSTRUCTION: \n    1. The Context contains a URL: ${foundUrls[0]}\n    2. You MUST visit/browse this URL to understand the topic.\n    3. Do not just rely on the URL text, access the content.\n    `;\n}\n\n// Store current request data in workflow static data\nconst staticData = $getWorkflowStaticData('global');\nif (!staticData.currentRequest) {\n  staticData.currentRequest = {};\n}\nstaticData.currentRequest[sessionId] = {\n  sessionId: sessionId,\n  chatId: $input.item.json.chatId,\n  userId: $input.item.json.userId,\n  messageId: $input.item.json.messageId,\n  person: $input.item.json.person,\n  media: media,\n  question: question,\n  context: context,\n  targetLength: $input.item.json.targetLength,\n  profile: $input.item.json.profile,\n  memory: $input.item.json.memory,\n  originalMessage: $input.item.json.originalMessage\n};\nstaticData.activeSessionId = sessionId;\n\nreturn {\n  json: {\n    ...($input.item.json),\n    researchQuery: `Task: Research this media request.\n${researchInstructions}\n\nContext Provided: ${context}\nJournalist Question: ${question}\nTarget Media: ${media}\n\nOutput Requirements:\n1. Summary of the article/topic\n2. Key facts/stats mentioned\n3. How this affects the industry\n4. Specific quotes if applicable`\n  }\n};"
       },
-      "id": "prepare-research",
+      "id": "448b3b28-58b0-44e4-afdf-30038609fe84",
       "name": "Prepare Research Queries",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1440, 360]
+      "position": [
+        -2704,
+        304
+      ]
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "https://api.perplexity.ai/chat/completions",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"model\": \"sonar\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": {{ JSON.stringify($json.researchQuery) }}\n    }\n  ]\n}",
+        "mode": "combine",
+        "combinationMode": "mergeByPosition",
         "options": {}
       },
-      "id": "research-perplexity",
-      "name": "Research with Perplexity",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [1640, 360],
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "perplexity_credentials",
-          "name": "Perplexity API"
-        }
-      }
+      "id": "bd5b5158-9e9e-4708-a22c-12d30548defa",
+      "name": "Merge Research with Request",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        -2256,
+        512
+      ]
     },
     {
       "parameters": {
-        "jsCode": "// Load conversation history from memory\nconst sessionId = $input.item.json.sessionId;\nconst staticData = $getWorkflowStaticData('global');\n\nlet memory = null;\nlet conversationHistory = [];\n\nif (staticData.sessions && staticData.sessions[sessionId]) {\n  memory = staticData.sessions[sessionId];\n  conversationHistory = memory.iterations || [];\n  \n  // Cache research results if not already stored\n  if (!memory.researchResults && $input.item.json.response) {\n    memory.researchResults = $input.item.json.response;\n    staticData.sessions[sessionId] = memory;\n  }\n}\n\nreturn {\n  json: {\n    ...($input.item.json),\n    memory,\n    conversationHistory,\n    hasHistory: conversationHistory.length > 0,\n    currentIteration: conversationHistory.length + 1,\n    response: memory?.researchResults || $input.item.json.response\n  }\n};"
+        "jsCode": "// 1. ROBUST SESSION ID RETRIEVAL\n// We try multiple sources to ensure we never get \"unknown_session\"\nconst staticData = $getWorkflowStaticData('global');\nconst inputData = $input.item.json || {};\n\nlet sessionId = inputData.sessionId;\n\n// Fail-safe: If missing, reach back to the source of truth\nif (!sessionId) {\n  try {\n     // Try getting it from the \"Parse Request\" node\n     sessionId = $items(\"Parse Request with PERSON\")[0].json.sessionId;\n  } catch(e) {}\n}\n\nif (!sessionId) {\n  // Try getting it from static data\n  sessionId = staticData.activeSessionId;\n}\n\n// 2. Load Memory\nlet memory = null;\nlet conversationHistory = [];\n\nif (sessionId && staticData.sessions && staticData.sessions[sessionId]) {\n  memory = staticData.sessions[sessionId];\n  conversationHistory = memory.iterations || [];\n  \n  // Cache research results if available\n  const perplexityResponse = inputData.choices?.[0]?.message?.content || inputData.output?.content?.[0]?.text;\n  if (!memory.researchResults && perplexityResponse) {\n    memory.researchResults = perplexityResponse;\n    staticData.sessions[sessionId] = memory;\n  }\n}\n\n// 3. Get Profile (Prioritize Input, then Memory, then Fallback)\nlet profile = inputData.profile || memory?.profile;\n\nif (!profile || !profile.name) {\n   // Fallback Profile\n   profile = {\n    name: 'Maria Arkhangelskaya',\n    name_ru: 'Мария Архангельская',\n    title: 'CEO',\n    company: 'DDVB',\n    default_target_length: '1500-2000'\n   };\n}\n\n// 4. Build Output\nconst output = {\n  sessionId: sessionId || 'unknown_session',\n  chatId: inputData.chatId || memory?.chatId,\n  userId: inputData.userId || memory?.userId,\n  profile: profile,\n  person: inputData.person || memory?.person,\n  media: inputData.media || memory?.media,\n  question: inputData.question || memory?.question,\n  context: inputData.context || memory?.context,\n  targetLength: inputData.targetLength || memory?.targetLength || '1500-2000',\n  memory: memory,\n  conversationHistory: conversationHistory,\n  currentIteration: conversationHistory.length + 1,\n  // Ensure we capture the research response correctly from Perplexity\n  response: inputData.choices?.[0]?.message?.content || inputData.output?.content?.[0]?.text || memory?.researchResults || 'Research not available',\n  feedback: inputData.feedback || memory?.feedback\n};\n\nreturn { json: output };"
       },
-      "id": "load-memory-context",
+      "id": "603214b4-51f2-4fab-81b6-cdd7f93b963d",
       "name": "Load Conversation History",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1840, 360]
+      "position": [
+        -2032,
+        512
+      ]
     },
     {
       "parameters": {
-        "jsCode": "// Build comprehensive AI Agent system message with profile data + memory context\nconst profile = $input.item.json.profile;\nconst researchResults = $input.item.json.response || 'Research not available';\nconst media = $input.item.json.media;\nconst question = $input.item.json.question;\nconst context = $input.item.json.context;\nconst targetLength = $input.item.json.targetLength;\nconst conversationHistory = $input.item.json.conversationHistory || [];\nconst currentIteration = $input.item.json.currentIteration || 1;\nconst feedback = $input.item.json.feedback || null;\n\n// Build revision history context\nlet revisionContext = '';\nif (conversationHistory.length > 0) {\n  revisionContext = `\\n## REVISION HISTORY\\n\\nThis is revision #${currentIteration}. Previous iterations:\\n\\n`;\n  conversationHistory.forEach((iter) => {\n    revisionContext += `### Iteration ${iter.iteration}\\n`;\n    revisionContext += `**Comment:** ${iter.comment.substring(0, 200)}...\\n`;\n    if (iter.feedback) {\n      revisionContext += `**Feedback received:** ${iter.feedback}\\n`;\n    }\n    revisionContext += `**Timestamp:** ${iter.timestamp}\\n\\n`;\n  });\n  \n  if (feedback) {\n    revisionContext += `### Current Feedback for Iteration ${currentIteration}\\n${feedback}\\n\\n`;\n    revisionContext += `**IMPORTANT:** Address this feedback while maintaining:\\n`;\n    revisionContext += `- Original question alignment\\n`;\n    revisionContext += `- ${profile.name}'s authentic voice\\n`;\n    revisionContext += `- Media outlet style (${media})\\n`;\n    revisionContext += `- Target length (${targetLength} characters)\\n\\n`;\n  }\n}\n\nconst systemMessage = `# SYSTEM PROMPT: ${profile.name} Comment Writer (AI Agent with Memory)\n\nYou are an expert ghostwriter for **${profile.name}** (${profile.name_ru || profile.name}), ${profile.title} (${profile.title_ru || profile.title}) of ${profile.company}. Your role is to write authentic media comments in their voice for Russian industry publications.\n\n${revisionContext}\n\n## WHO IS ${profile.name.toUpperCase()}\n\n### Professional Background\n${profile.career_highlights ? profile.career_highlights.map(h => `- ${h}`).join('\\n') : 'Experienced professional'}\n\n### Core Expertise\n${profile.expertise.map(e => `- ${e}`).join('\\n')}\n\n${profile.philosophy ? '### Professional Philosophy\\n' + profile.philosophy + '\\n' + (profile.philosophy_ru || '') : ''}\n\n## VOICE & TONE\n\n### Communication Style\n${profile.communication_style}\n${profile.communication_style_ru ? '\\n' + profile.communication_style_ru : ''}\n\n### Tone\n${profile.tone}\n${profile.tone_ru ? '\\n' + profile.tone_ru : ''}\n\n### Speaking Patterns\n${profile.speaking_patterns || 'Natural, professional communication'}\n${profile.speaking_patterns_ru ? '\\n' + profile.speaking_patterns_ru : ''}\n\n## WHAT TO AVOID\n${profile.do_not_say ? profile.do_not_say.map(d => `- ${d}`).join('\\n') : '- Unprofessional communication\\n- Topics outside expertise'}\n\n## PREFERRED STRUCTURE\n${profile.preferred_structure || 'Clear opening → Supporting evidence → Actionable conclusion'}\n${profile.preferred_structure_ru ? '\\n' + profile.preferred_structure_ru : ''}\n\n## CRITICAL REQUIREMENTS (Version 2.3 - AI Agent with Memory)\n\n1. **УЧЁТ СПЕЦИФИКИ СМИ**: Adapt to each outlet's style and audience\n2. **ПРЯМОЙ ОТВЕТ**: Directly answer journalist's question (no topic drift)\n3. **ОРИГИНАЛЬНОЕ МНЕНИЕ**: Original insights with facts (no общеизвестные истины)\n4. **ОБЪЁМ**: Standard ${profile.default_target_length || targetLength} characters (2-3 paragraphs)\n5. **CONTINUITY**: ${currentIteration > 1 ? 'Apply feedback while maintaining original constraints' : 'First iteration - establish baseline'}\n\n## OUTPUT STRUCTURE (9-Part Framework)\n\nProvide comprehensive analysis with:\n\n1. **КОНТЕКСТ** (2-3 sentences): Brief analysis of what's being discussed\n2. **МЕДИА-АНАЛИЗ** (2-3 sentences): Media outlet identification and adaptation strategy\n3. **ПРЯМОЙ ОТВЕТ** (1-2 sentences): Verify the comment directly answers the question\n4. **ОРИГИНАЛЬНОСТЬ** (2-3 sentences): Check for original insights with facts\n5. **ПОЗИЦИОНИРОВАНИЕ** (2-3 sentences): ${profile.name}'s strategic angle on this topic\n6. **КОММЕНТАРИЙ** (${profile.default_target_length || targetLength} characters): Ready-to-post comment in Russian\n7. **ПРОВЕРКА ДЛИНЫ**: Character count verification\n8. **АЛЬТЕРНАТИВА** (optional): Alternative angle or approach\n9. **ПРИМЕЧАНИЯ**: Caveats, recommendations, or special considerations\n${currentIteration > 1 ? '10. **ИЗМЕНЕНИЯ**: Summary of what changed from previous iteration based on feedback' : ''}\n\n## CURRENT REQUEST\n\n**Iteration:** ${currentIteration}\n**Media Outlet:** ${media}\n**Question:** ${question}\n**Context:** ${context}\n**Target Length:** ${targetLength} characters\n${feedback ? `\\n**PR Manager Feedback:** ${feedback}` : ''}\n\n**Research Results:**\n${researchResults}\n\nWrite in professional Russian (вы-form). Be authentic to ${profile.name}'s voice and expertise.\n`;\n\nconst userMessage = `Based on the research${conversationHistory.length > 0 ? ', revision history,' : ''} and context provided, write a media comment in ${profile.name}'s voice following the ${currentIteration > 1 ? '10' : '9'}-part framework.\n\nRemember:\n- Use ${profile.name}'s unique perspective and expertise\n- Answer the question directly\n- Provide original insights with facts\n- Target length: ${targetLength} characters\n- Adapt to ${media} outlet style\n- Write in professional Russian (вы-form)\n${feedback ? `- Address this specific feedback: ${feedback}` : ''}\n${currentIteration > 1 ? `- This is revision #${currentIteration} - show what changed` : ''}`;\n\nreturn {\n  json: {\n    ...($input.item.json),\n    systemMessage,\n    userMessage,\n    revisionContext\n  }\n};"
+        "jsCode": "// Build comprehensive AI Agent system message with profile data + memory context\r\n// WRAPPED IN TRY-CATCH: Guarantees systemMessage and userMessage output\r\n\r\ntry {\r\n  // Safely get input data\r\n  const inputData = $input?.item?.json || {};\r\n  \r\n  // Get profile with comprehensive fallback\r\n  let profile = inputData.profile;\r\n  if (!profile || !profile.name) {\r\n    profile = {\r\n      profile_id: 'maria_arkhangelskaya',\r\n      name: 'Maria Arkhangelskaya',\r\n      name_ru: 'Мария Архангельская',\r\n      title: 'CEO & Managing Partner of DDVB',\r\n      title_ru: 'Генеральный директор и управляющий партнёр DDVB',\r\n      company: 'DDVB',\r\n      expertise: ['Agency operations', 'Branding', 'Client relations'],\r\n      communication_style: 'Professional expert with systems-thinking approach',\r\n      communication_style_ru: 'Профессиональный эксперт с системным подходом',\r\n      tone: 'Authoritative yet warm, experience-based',\r\n      tone_ru: 'Авторитетный, но тёплый, основанный на опыте',\r\n      language: 'ru',\r\n      default_target_length: '1500-2000',\r\n      career_highlights: ['20+ years in branding', 'CEO since 2022'],\r\n      philosophy: 'Systems-thinking approach to management',\r\n      do_not_say: ['Marketing jargon', 'Client name-dropping']\r\n    };\r\n  }\r\n  \r\n  // Ensure profile has all required array fields\r\n  if (!Array.isArray(profile.expertise)) profile.expertise = ['Agency operations', 'Branding', 'Client relations'];\r\n  if (!Array.isArray(profile.career_highlights)) profile.career_highlights = ['20+ years in branding', 'CEO since 2022'];\r\n  if (!Array.isArray(profile.do_not_say)) profile.do_not_say = ['Marketing jargon', 'Client name-dropping'];\r\n  \r\n  const researchResults = inputData.response || 'Research not available';\r\n  const media = inputData.media || 'Unknown Media';\r\n  const question = inputData.question || 'No question provided';\r\n  const context = inputData.context || 'No context provided';\r\n  const targetLength = inputData.targetLength || profile.default_target_length || '1500-2000';\r\n  const conversationHistory = inputData.conversationHistory || [];\r\n  const currentIteration = inputData.currentIteration || 1;\r\n  const feedback = inputData.feedback || null;\r\n\r\n// Calculate target length range for display\r\nconst targetLengthMin = parseInt(targetLength.split('-')[0]) || 1500;\r\nconst targetLengthMax = parseInt(targetLength.split('-')[1] || targetLength.split('-')[0]) || 2000;\r\nconst targetParagraphs = `${Math.round(targetLengthMin / 100)}-${Math.round(targetLengthMax / 100)}`;\r\n\r\n// Build revision history context\r\nlet revisionContext = '';\r\nif (conversationHistory.length > 0) {\r\n  revisionContext = `\\n## REVISION HISTORY\\n\\nThis is revision #${currentIteration}. Previous iterations:\\n\\n`;\r\n  conversationHistory.forEach((iter) => {\r\n    revisionContext += `### Iteration ${iter.iteration}\\n`;\r\n    revisionContext += `**Comment:** ${iter.comment.substring(0, 200)}...\\n`;\r\n    if (iter.feedback) {\r\n      revisionContext += `**Feedback received:** ${iter.feedback}\\n`;\r\n    }\r\n    revisionContext += `**Timestamp:** ${iter.timestamp}\\n\\n`;\r\n  });\r\n  \r\n  if (feedback) {\r\n    revisionContext += `### Current Feedback for Iteration ${currentIteration}\\n${feedback}\\n\\n`;\r\n    revisionContext += `**IMPORTANT:** Address this feedback while maintaining:\\n`;\r\n    revisionContext += `- Original question alignment\\n`;\r\n    revisionContext += `- ${profile.name}'s authentic voice\\n`;\r\n    revisionContext += `- Media outlet style (${media})\\n`;\r\n    revisionContext += `- Target length (${targetLength} characters)\\n\\n`;\r\n  }\r\n}\r\n\r\nconst systemMessage = `# ROLE: Expert Ghostwriter for ${profile.name} (AI Agent v2.3)\r\n\r\nYou are a professional ghostwriter specializing in authentic media commentary. Your task is to write comments in the voice of **${profile.name}** (${profile.name_ru || profile.name}), ${profile.title} (${profile.title_ru || profile.title}) of ${profile.company}, for Russian industry publications.\r\n\r\n${revisionContext}\r\n\r\n---\r\n\r\n## IDENTITY: WHO IS ${profile.name.toUpperCase()}\r\n\r\n### Professional Credentials\r\n${profile.career_highlights ? profile.career_highlights.map(h => `- ${h}`).join('\\n') : '- Experienced professional'}\r\n\r\n### Core Expertise Areas\r\n${profile.expertise.map(e => `- ${e}`).join('\\n')}\r\n\r\n${profile.philosophy ? `### Professional Philosophy\\n${profile.philosophy}\\n${profile.philosophy_ru ? profile.philosophy_ru + '\\n' : ''}` : ''}\r\n\r\n---\r\n\r\n## VOICE & COMMUNICATION STYLE\r\n\r\n### Communication Approach\r\n${profile.communication_style}\r\n${profile.communication_style_ru ? '\\n' + profile.communication_style_ru : ''}\r\n\r\n### Tone Characteristics\r\n${profile.tone}\r\n${profile.tone_ru ? '\\n' + profile.tone_ru : ''}\r\n\r\n### Speaking Patterns & Language Style\r\n${profile.speaking_patterns || 'Natural, professional communication with experience-based references'}\r\n${profile.speaking_patterns_ru ? '\\n' + profile.speaking_patterns_ru : ''}\r\n\r\n**Key Phrases to Use:**\r\n- Experience-based references: \"В нашей практике...\", \"За ${profile.experience_years || '20+'} лет...\"\r\n- Systems-thinking perspective: Connect operational details to strategic insights\r\n- Measured authority: Confident but not arrogant, grounded in real experience\r\n\r\n---\r\n\r\n## CONSTRAINTS & BOUNDARIES\r\n\r\n### What to Avoid\r\n${profile.do_not_say ? profile.do_not_say.map(d => `- ${d}`).join('\\n') : '- Unprofessional communication\\n- Topics outside expertise\\n- Marketing jargon\\n- Client name-dropping'}\r\n\r\n### Preferred Comment Structure\r\n${profile.preferred_structure || 'Clear opening → Supporting evidence → Actionable conclusion'}\r\n${profile.preferred_structure_ru ? '\\n' + profile.preferred_structure_ru : ''}\r\n\r\n---\r\n\r\n## CRITICAL QUALITY REQUIREMENTS\r\n\r\nFollow these requirements in order of priority:\r\n\r\n### 1. УЧЁТ СПЕЦИФИКИ СМИ (Media Outlet Adaptation)\r\n**Target Outlet:** ${media}\r\n\r\nAdapt your comment to match this outlet's style:\r\n- **Sostav.ru**: Industry insider tone, professional terminology, 1,500-2,000 chars\r\n- **Cossa.ru**: Digital marketing focus, practical applications, 1,200-1,800 chars\r\n- **Forbes Russia**: CEO business perspective, strategic vision, 1,800-2,200 chars\r\n- **RBC**: Authoritative journalism, data-driven, 1,500-2,000 chars\r\n- **VC.ru**: Startup-friendly, accessible, practical advice, 1,200-1,800 chars\r\n- **Секрет фирмы**: Management systems focus, operational perspective, 1,500-2,200 chars\r\n- **Adindex.ru**: Advertising insider, industry-specific, 1,200-1,800 chars\r\n\r\n### 2. ПРЯМОЙ ОТВЕТ (Direct Answer Requirement)\r\n**Journalist's Question:** ${question}\r\n\r\n**CRITICAL:** Your comment MUST directly answer this specific question. Do not:\r\n- Drift to related but different topics\r\n- Provide generic commentary that doesn't address the question\r\n- Answer a different question than what was asked\r\n\r\n**Verification Step:** Before finalizing, confirm: \"Does my comment directly answer: '${question}'?\"\r\n\r\n### 3. ОРИГИНАЛЬНОЕ МНЕНИЕ (Original Insights)\r\nProvide unique insights based on ${profile.name}'s expertise, not:\r\n- Общеизвестные истины (common knowledge everyone knows)\r\n- Generic statements without substance\r\n- Rehashed industry platitudes\r\n\r\n**Required:** Include at least one specific insight, fact, or perspective unique to ${profile.name}'s experience.\r\n\r\n### 4. ОБЪЁМ (Target Length)\r\n**Target:** ${profile.default_target_length || targetLength} characters (approximately ${targetParagraphs} paragraphs)\r\n\r\n**Length Guidelines:**\r\n- Too short (< 1,200 chars): Lacks depth, appears rushed\r\n- Too long (> 2,200 chars): Loses reader attention, may be edited down\r\n- Optimal: ${targetLength} characters provides sufficient depth without overwhelming\r\n\r\n### 5. CONTINUITY & CONSISTENCY\r\n${currentIteration > 1 ? `**This is revision #${currentIteration}** - Apply feedback while maintaining:\\n- Original question alignment\\n- ${profile.name}'s authentic voice\\n- Media outlet style (${media})\\n- Target length (${targetLength} characters)` : '**First iteration** - Establish baseline quality and voice consistency'}\r\n\r\n---\r\n\r\n## OUTPUT FORMAT: 9-PART FRAMEWORK\r\n\r\nProvide your response in this exact structure. Each section must be clearly labeled:\r\n\r\n### 1. КОНТЕКСТ (Context Analysis)\r\n**Length:** 2-3 sentences\r\n**Purpose:** Brief analysis of what's being discussed in the article/context\r\n**Content:** Summarize the key topic, why it matters, and the current situation\r\n\r\n### 2. КОММЕНТАРИЙ (The Comment)\r\n**Length:** ${profile.default_target_length || targetLength} characters\r\n**Purpose:** Ready-to-post comment in Russian\r\n**Format Requirements:**\r\n- Professional Russian (вы-form throughout)\r\n- Natural, authentic voice matching ${profile.name}'s style\r\n- Direct answer to: \"${question}\"\r\n- Original insights with facts\r\n- Adapted to ${media} outlet style\r\n- Target length: ${targetLength} characters\r\n\r\n**Structure:**\r\n- Opening: Direct engagement with the question\r\n- Middle: Supporting evidence, experience-based insights\r\n- Closing: Actionable conclusion or forward-looking perspective\r\n\r\n\r\n\r\n${currentIteration > 1 ? `### 10. ИЗМЕНЕНИЯ (Changes Summary)\\n**Length:** 3-5 sentences\\n**Purpose:** Document what changed from previous iteration\\n**Content:**\\n- What specific changes were made based on feedback\\n- What was preserved from previous version\\n- How this version addresses the feedback: \"${feedback}\"` : ''}\r\n\r\n---\r\n\r\n## CURRENT REQUEST DETAILS\r\n\r\n**Iteration Number:** ${currentIteration}${currentIteration > 1 ? ' (Revision)' : ' (First Draft)'}\r\n**Media Outlet:** ${media}\r\n**Journalist's Question:** ${question}\r\n**Context/Article:** ${context}\r\n**Target Length:** ${targetLength} characters\r\n${feedback ? `\\n**PR Manager Feedback:** ${feedback}` : ''}\r\n\r\n### Research & Context Data\r\n${researchResults}\r\n\r\n---\r\n\r\n## EXECUTION INSTRUCTIONS\r\n\r\n**Step 1:** Analyze the journalist's question and ensure you understand exactly what is being asked.\r\n\r\n**Step 2:** Review the research results and context to gather relevant information.\r\n\r\n**Step 3:** Identify how ${profile.name}'s expertise applies to this question.\r\n\r\n**Step 4:** Determine the appropriate tone and style for ${media} outlet.\r\n\r\n**Step 5:** Draft the main comment (section 2) ensuring:\r\n- Direct answer to the question\r\n- Original insights with facts\r\n- Authentic voice matching ${profile.name}\r\n- Appropriate length (${targetLength} characters)\r\n- Professional Russian (вы-form)\r\n\r\n**Step 6:** Complete every required section (Context + Comment${currentIteration > 1 ? ' + ИЗМЕНЕНИЯ' : ''}).\r\n\r\n**Step 7:** Verify quality:\r\n- ✓ Directly answers: \"${question}\"\r\n- ✓ Contains original insights (not common knowledge)\r\n- ✓ Matches ${profile.name}'s voice and expertise\r\n- ✓ Adapted to ${media} style\r\n- ✓ Within target length (${targetLength} characters)\r\n- ✓ Professional Russian throughout\r\n\r\n---\r\n\r\n## FINAL REMINDERS\r\n\r\n- Write in **professional Russian** using вы-form (formal address)\r\n- Be **authentic** to ${profile.name}'s voice - this should sound like them, not generic AI\r\n- Provide **original insights** based on their expertise, not platitudes\r\n- **Directly answer** the journalist's question without topic drift\r\n- **Adapt** to ${media} outlet's style and audience expectations\r\n- Maintain **professional authority** without arrogance\r\n- Use **experience-based references** naturally (\"В нашей практике...\", \"За ${profile.experience_years || '20+'} лет...\")\r\n\r\nBegin your response now, following the structured format (Context + Comment${currentIteration > 1 ? ' + ИЗМЕНЕНИЯ' : ''}) exactly as specified above.`;\r\n\r\nconst userMessage = `Based on the research${conversationHistory.length > 0 ? ', revision history,' : ''} and context provided, write a media comment in ${profile.name}'s voice following the structured format (Context + Comment${currentIteration > 1 ? ' + ИЗМЕНЕНИЯ' : ''}).\r\n\r\n**Task Breakdown:**\r\n\r\n1. **Analyze** the journalist's question: \"${question}\"\r\n2. **Review** the research and context provided\r\n3. **Identify** ${profile.name}'s unique perspective on this topic\r\n4. **Adapt** tone and style for ${media} outlet\r\n5. **Draft** the main comment (КОММЕНТАРИЙ section) with:\r\n   - Direct answer to the question\r\n   - Original insights with facts\r\n   - Authentic voice\r\n   - Target length: ${targetLength} characters\r\n6. **Complete** all required sections (Context + Comment${currentIteration > 1 ? ' + ИЗМЕНЕНИЯ' : ''})\r\n7. **Verify** all quality requirements are met\r\n\r\n**Key Requirements:**\r\n- Use ${profile.name}'s unique perspective and expertise\r\n- Answer the question directly: \"${question}\"\r\n- Provide original insights with facts (not common knowledge)\r\n- Target length: ${targetLength} characters\r\n- Adapt to ${media} outlet style\r\n- Write in professional Russian (вы-form)\r\n${feedback ? `- **CRITICAL:** Address this specific feedback: ${feedback}` : ''}\r\n${currentIteration > 1 ? `- This is revision #${currentIteration} - show what changed in the ИЗМЕНЕНИЯ section` : ''}\r\n\r\nBegin your response following the framework structure.`;\r\n\r\nreturn {\r\n    json: {\r\n      ...inputData,\r\n      systemMessage,\r\n      userMessage,\r\n      revisionContext\r\n    }\r\n  };\r\n} catch (error) {\r\n  // FALLBACK: Always return valid systemMessage and userMessage\r\n  const fallbackSystemMessage = 'You are a professional ghostwriter. Write a media comment in Russian for Maria Arkhangelskaya, CEO of DDVB. Use professional Russian (вы-form). Target length: 1500-2000 characters.';\r\n  const fallbackUserMessage = 'Write a media comment answering the journalist question. Include original insights based on 20+ years of branding experience. Follow the Context + Comment structure.';\r\n  \r\n  return {\r\n    json: {\r\n      systemMessage: fallbackSystemMessage,\r\n      userMessage: fallbackUserMessage,\r\n      error: error.message || 'Unknown error in Build AI Agent Prompt'\r\n    }\r\n  };\r\n}\r\n"
       },
-      "id": "build-ai-prompt",
+      "id": "bddce595-b431-4d07-b7e5-b0ff5f5bdf1e",
       "name": "Build AI Agent Prompt with Memory",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [2040, 360]
+      "position": [
+        -1872,
+        512
+      ]
     },
     {
       "parameters": {
-        "model": "gpt-4o",
-        "options": {
-          "temperature": 0.7,
-          "maxTokens": 3000
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5",
+          "mode": "list",
+          "cachedResultName": "GPT-5"
         },
-        "messages": [
-          {
-            "role": "system",
-            "content": "={{ $json.systemMessage }}"
-          },
-          {
-            "role": "user",
-            "content": "={{ $json.userMessage }}"
-          }
-        ]
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "={{ $json.systemMessage }}"
+            },
+            {
+              "content": "={{ $json.userMessage }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
       },
-      "id": "ai-agent-draft",
-      "name": "AI Agent - Draft Comment (GPT-4o)",
-      "type": "n8n-nodes-base.openAi",
-      "typeVersion": 1,
-      "position": [2240, 360],
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2,
+      "position": [
+        -1664,
+        512
+      ],
+      "id": "e47ae4d5-0078-4744-a15a-c76feb3ca3d3",
+      "name": "Generate Comment (GPT)",
       "credentials": {
         "openAiApi": {
-          "id": "openai_credentials",
-          "name": "OpenAI API"
+          "id": "vMHSP02jcq5bmgAi",
+          "name": "OpenAi account"
         }
       }
     },
     {
       "parameters": {
-        "jsCode": "// Extract the drafted comment from AI response\nconst aiResponse = $input.item.json.message?.content || $input.item.json.choices?.[0]?.message?.content || '';\n\n// Parse the 9/10-part structure to extract the main comment\nconst commentMatch = aiResponse.match(/КОММЕНТАРИЙ[:\\s]*([\\s\\S]*?)(?=ПРОВЕРКА ДЛИНЫ|АЛЬТЕРНАТИВА|ПРИМЕЧАНИЯ|ИЗМЕНЕНИЯ|$)/i);\nconst mainComment = commentMatch ? commentMatch[1].trim() : aiResponse;\n\n// Extract changes summary if present (for revisions)\nconst changesMatch = aiResponse.match(/ИЗМЕНЕНИЯ[:\\s]*([\\s\\S]*?)(?=ПРИМЕЧАНИЯ|$)/i);\nconst changesSummary = changesMatch ? changesMatch[1].trim() : null;\n\nconst characterCount = mainComment.length;\n\nreturn {\n  json: {\n    ...($input.item.json),\n    fullDraftResponse: aiResponse,\n    mainComment,\n    characterCount,\n    changesSummary\n  }\n};"
+        "jsCode": "// 1. Retrieve the original context (Profile, SessionId, etc.) from the node BEFORE the AI Agent\nconst contextNodeName = 'Build AI Agent Prompt with Memory';\n\nlet previousNodeData = {};\ntry {\n  // Try to get data from the specific previous node\n  if ($items(contextNodeName).length > 0) {\n    previousNodeData = $items(contextNodeName)[0].json;\n  } else {\n    // Fallback: if $items fails, try basic back-referencing\n    previousNodeData = $node[contextNodeName]?.json || {};\n  }\n} catch (e) {\n  // Safe fallback if node connection is tricky\n  console.log('Context warning');\n}\n\n// 2. Get AI Response with ROBUST extraction\nconst aiItem = $input.item.json;\nlet aiResponse = '';\n\n// Helper function to extract text from various AI response formats\nfunction extractTextFromAI(response) {\n    if (!response) return null;\n    \n    // If response is a string, check if it's JSON that needs parsing\n    if (typeof response === 'string') {\n        const trimmed = response.trim();\n        if (trimmed.startsWith('{') || trimmed.startsWith('[')) {\n            try {\n                const parsed = JSON.parse(trimmed);\n                return extractTextFromAI(parsed);\n            } catch (e) {\n                return response;\n            }\n        }\n        return response;\n    }\n    \n    // If not an object, return null\n    if (typeof response !== 'object' || response === null) {\n        return null;\n    }\n    \n    // Format 1: OpenAI Responses API - output.content[0].text (PRIMARY FORMAT for LangChain OpenAI node v2)\n    if (response.output?.content && Array.isArray(response.output.content)) {\n        for (const contentItem of response.output.content) {\n            if (contentItem?.text) {\n                return contentItem.text;\n            }\n            if (contentItem?.type === 'output_text' && contentItem?.text) {\n                return contentItem.text;\n            }\n        }\n    }\n    \n    // Format 2: Direct output.text (simplified)\n    if (response.output?.text && typeof response.output.text === 'string') {\n        return response.output.text;\n    }\n    \n    // Format 3: If output itself is a string\n    if (typeof response.output === 'string') {\n        const trimmedOutput = response.output.trim();\n        if (trimmedOutput.startsWith('{') || trimmedOutput.startsWith('[')) {\n            try {\n                const parsedOutput = JSON.parse(trimmedOutput);\n                return extractTextFromAI(parsedOutput);\n            } catch (e) {\n                return response.output;\n            }\n        }\n        return response.output;\n    }\n    \n    // Format 4: Standard chat completion - message.content\n    if (response.message?.content && typeof response.message.content === 'string') {\n        return response.message.content;\n    }\n    \n    // Format 5: OpenAI Chat Completions API - choices[0].message.content\n    if (response.choices?.[0]?.message?.content) {\n        return response.choices[0].message.content;\n    }\n    \n    // Format 6: Direct text property\n    if (typeof response.text === 'string') {\n        return response.text;\n    }\n    \n    // Format 7: Direct content property\n    if (typeof response.content === 'string') {\n        return response.content;\n    }\n    \n    // Format 8: n8n may wrap in a 'json' property\n    if (response.json) {\n        return extractTextFromAI(response.json);\n    }\n    \n    // Format 9: n8n may wrap in a 'data' property\n    if (response.data) {\n        return extractTextFromAI(response.data);\n    }\n    \n    return null;\n}\n\n// Try to extract the AI response text\naiResponse = extractTextFromAI(aiItem);\n\n// Fallback: if extraction failed, try to stringify\nif (!aiResponse) {\n    try { aiResponse = JSON.stringify(aiItem); } catch(e) { aiResponse = ''; }\n}\n\naiResponse = String(aiResponse || '');\n\n// SAFETY: If still looks like raw API response, extract brutally\nif (aiResponse.includes('\"output\":') && aiResponse.includes('\"content\":')) {\n    // Method 1: Standard JSON text extraction (handles escaped newlines)\n    let textMatch = aiResponse.match(/\"text\"\\s*:\\s*\"((?:[^\"\\\\]|\\\\.)*)\"/);\n    if (textMatch && textMatch[1]) {\n        aiResponse = textMatch[1].replace(/\\\\n/g, '\\n').replace(/\\\\\"/g, '\"').replace(/\\\\\\\\/g, '\\\\');\n    } else {\n        // Method 2: Handle multiline text with literal newlines (malformed JSON)\n        const textStartMatch = aiResponse.match(/\"text\"\\s*:\\s*\"/);\n        if (textStartMatch) {\n            const startIdx = textStartMatch.index + textStartMatch[0].length;\n            // Find the closing pattern: \"}] or \"}]}\n            let endPatterns = ['\"\\}\\]\\}', '\"}]', '\",', '\"\\}'];\n            let endIdx = aiResponse.length;\n            for (const pattern of endPatterns) {\n                const regex = new RegExp(pattern);\n                const match = aiResponse.substring(startIdx).match(regex);\n                if (match && (startIdx + match.index) < endIdx) {\n                    endIdx = startIdx + match.index;\n                }\n            }\n            if (endIdx > startIdx) {\n                aiResponse = aiResponse.substring(startIdx, endIdx)\n                    .replace(/\\\\n/g, '\\n')\n                    .replace(/\\\\\"/g, '\"')\n                    .replace(/\\\\\\\\/g, '\\\\');\n            }\n        }\n    }\n}\n\n// 3. STRICT EXTRACTION (Updated)\n// Look for \"### 2. ... КОММЕНТАРИЙ\" (new format) but stay backward-compatible with \"6. ... КОММЕНТАРИЙ\"\n// Capture until the next numbered section header (### X.) or the end of the string\nlet mainComment = \"\";\nconst commentMatch = aiResponse.match(/###\\s*(?:2|6)\\.\\s*.*?(?:КОММЕНТАРИЙ|COMMENT)[^\\r\\n]*\\r?\\n([\\s\\S]*?)(?=\\r?\\n###\\s*\\d+\\.\\s|$)/i);\n\nif (commentMatch && commentMatch[1]) {\n    mainComment = commentMatch[1].trim();\n} else {\n    // Fallback: Try simpler match if numbered list is missing\n    const simpleMatch = aiResponse.match(/(?:КОММЕНТАРИЙ|The Comment):?[\\s\\S]*?\\n([\\s\\S]*?)$/i);\n    mainComment = simpleMatch ? simpleMatch[1].trim() : aiResponse;\n}\n\n// 4. LENGTH SAFETY VALVE (New)\n// Telegram limit is 4096. We reserve space for headers/metadata.\n// If comment is > 3500 chars, we truncate it to prevent crash.\nif (mainComment.length > 3500) {\n    mainComment = mainComment.substring(0, 3500) + \"\\n\\n[...Text Truncated by Telegram Limit...]\";\n}\n\nconst changesMatch = aiResponse.match(/###\\s*10\\.\\s*ИЗМЕНЕНИЯ[^\\r\\n]*\\r?\\n([\\s\\S]*?)(?=\\r?\\n###\\s*\\d+\\.\\s|$)/i);\nconst changesSummary = changesMatch ? changesMatch[1].trim() : null;\n\nreturn {\n  json: {\n    ...previousNodeData, \n    fullDraftResponse: aiResponse,\n    mainComment,\n    characterCount: mainComment.length,\n    changesSummary\n  }\n};"
       },
-      "id": "extract-comment",
+      "id": "cc89f3a5-216b-408e-9032-51bdcc3f8fc6",
       "name": "Extract Comment",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [2440, 360]
+      "position": [
+        -1456,
+        512
+      ]
     },
     {
       "parameters": {
-        "model": "gpt-4o",
-        "options": {
-          "temperature": 0.8,
-          "maxTokens": 2000
-        },
-        "messages": [
-          {
-            "role": "system",
-            "content": "You are a Russian language expert specializing in natural business communication. Your task is to humanize AI-generated text to sound like authentic professional Russian writing - removing any stilted or overly formal AI patterns while preserving the core message and the person's professional voice.\\n\\nKey principles:\\n- Natural flow and rhythm in Russian\\n- Professional but warm business tone (вы-form)\\n- Remove AI-typical constructions\\n- Maintain the person's unique perspective\\n- Keep experience-based insights\\n- Preserve original meaning and strategic angle\\n- Ensure smooth, conversational professional Russian"
-          },
-          {
-            "role": "user",
-            "content": "=Humanize this comment to sound like authentic Russian business communication from {{ $json.profile.name }}. Make it natural, warm, and professional while preserving the core message:\n\n{{ $json.mainComment }}\n\nReturn ONLY the humanized comment text, nothing else."
-          }
-        ]
+        "jsCode": "// Build humanize prompt with profile context\nconst profile = $input.item.json.profile;\nconst mainComment = $input.item.json.mainComment || '';\n\n// Validate inputs\nif (!profile || !profile.name) {\n  throw new Error('Profile is missing. Cannot build humanize prompt without profile information.');\n}\n\nif (!mainComment || mainComment.trim().length === 0) {\n  throw new Error('Main comment is missing. Cannot humanize empty comment.');\n}\n\n// Build comprehensive system message for humanization\nconst systemMessage = `You are a Russian language expert specializing in natural business communication. Your task is to humanize AI-generated text to sound like authentic professional Russian writing - removing any stilted or overly formal AI patterns while preserving the core message and the person's professional voice.\n\n## WHO YOU ARE HUMANIZING FOR\n\n**${profile.name}** (${profile.name_ru || profile.name})\n${profile.title} (${profile.title_ru || profile.title}) of ${profile.company}\n\n### Communication Style\n${profile.communication_style}\n${profile.communication_style_ru ? '\\n' + profile.communication_style_ru : ''}\n\n### Tone\n${profile.tone}\n${profile.tone_ru ? '\\n' + profile.tone_ru : ''}\n\n${profile.speaking_patterns ? '### Speaking Patterns\\n' + profile.speaking_patterns + (profile.speaking_patterns_ru ? '\\n' + profile.speaking_patterns_ru : '') + '\\n' : ''}\n\n## KEY PRINCIPLES\n\n1. **Natural Flow**: Ensure smooth, conversational Russian that reads naturally\n2. **Professional Warmth**: Maintain вы-form with warm, respectful directness\n3. **Remove AI Patterns**: Eliminate stilted constructions, overly formal phrases, or obvious AI-generated patterns\n4. **Preserve Voice**: Keep ${profile.name}'s unique perspective and expertise-based insights\n5. **Maintain Message**: Preserve the core strategic message and original meaning\n6. **Experience-Based**: Keep references to experience (\"В нашей практике...\", \"За 20 лет...\")\n7. **Strategic Angle**: Maintain the positioning and strategic thinking\n\n## WHAT TO REMOVE\n\n- Overly formal or stilted AI constructions\n- Repetitive sentence structures\n- Unnatural transitions\n- Generic corporate speak\n- Overly complex nested clauses\n\n## WHAT TO PRESERVE\n\n- ${profile.name}'s unique perspective\n- Experience-based insights\n- Strategic positioning\n- Core message and meaning\n- Professional authority\n- Original facts and data\n\n## OUTPUT REQUIREMENTS\n\n- Return ONLY the humanized comment text\n- No explanations, no meta-commentary\n- Just the clean, natural Russian text\n- Maintain original length approximately (${profile.default_target_length || '1500-2000'} characters)\n- Professional вы-form throughout`;\n\n// Build user message with the actual comment to humanize\nconst userMessage = `Humanize this comment to sound like authentic Russian business communication from ${profile.name}. Make it natural, warm, and professional while preserving the core message:\n\n---\n${mainComment}\n---\n\nReturn ONLY the humanized comment text, nothing else.`;\n\nreturn {\n  json: {\n    ...($input.item.json),\n    humanizeSystemMessage: systemMessage,\n    humanizeUserMessage: userMessage\n  }\n};"
       },
-      "id": "humanize-comment",
-      "name": "Humanize Comment",
-      "type": "n8n-nodes-base.openAi",
-      "typeVersion": 1,
-      "position": [2640, 360],
+      "id": "7459fb82-050f-4494-a888-8deb88cb25c7",
+      "name": "Build Humanize Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1248,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5",
+          "mode": "list",
+          "cachedResultName": "GPT-5"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "={{ $json.humanizeSystemMessage }}"
+            },
+            {
+              "content": "={{ $json.humanizeUserMessage }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2,
+      "position": [
+        -1040,
+        512
+      ],
+      "id": "1bde51fb-4278-4434-a66e-a74f7ff4ba49",
+      "name": "Humanize Comment (GPT)",
       "credentials": {
         "openAiApi": {
-          "id": "openai_credentials",
-          "name": "OpenAI API"
+          "id": "vMHSP02jcq5bmgAi",
+          "name": "OpenAi account"
         }
       }
     },
     {
       "parameters": {
-        "jsCode": "// Extract humanized comment and calculate diff from previous version\nconst humanizedComment = $input.item.json.message?.content || $input.item.json.choices?.[0]?.message?.content || $input.item.json.mainComment;\nconst finalCharCount = humanizedComment.length;\nconst currentIteration = $input.item.json.currentIteration || 1;\nconst conversationHistory = $input.item.json.conversationHistory || [];\nconst changesSummary = $input.item.json.changesSummary || null;\n\n// Calculate diff if there's a previous version\nlet diffSummary = null;\nif (conversationHistory.length > 0) {\n  const previousComment = conversationHistory[conversationHistory.length - 1].comment;\n  const previousLength = previousComment.length;\n  const lengthDiff = finalCharCount - previousLength;\n  const lengthDiffPercent = Math.round((lengthDiff / previousLength) * 100);\n  \n  diffSummary = {\n    previousLength,\n    currentLength: finalCharCount,\n    lengthDiff,\n    lengthDiffPercent,\n    lengthChange: lengthDiff > 0 ? 'увеличен' : lengthDiff < 0 ? 'сокращён' : 'без изменений'\n  };\n}\n\nreturn {\n  json: {\n    ...($input.item.json),\n    humanizedComment,\n    finalCharCount,\n    diffSummary,\n    readyForApproval: true\n  }\n};"
+        "jsCode": "// 1. RECOVER CONTEXT (Critical Fix)\n// The \"Humanize Comment (GPT)\" node swallowed the sessionId and profile.\n// We must fetch them from the node BEFORE the AI.\nconst contextNode = 'Build Humanize Prompt';\nlet context = {};\ntry {\n   // Try to grab the data that went INTO the AI agent\n   if ($items(contextNode).length > 0) {\n    context = $items(contextNode)[0].json;\n  } else {\n    context = $node[contextNode].json;\n  }\n} catch (e) {\n  console.log(\"Warning: Could not recover context from previous node\");\n}\n\n// 2. Extract Humanized Comment with ROBUST extraction\nconst item = $input.item.json;\nlet humanizedComment = '';\n\n// Helper function to extract text from various AI response formats\nfunction extractText(response) {\n    if (!response) return null;\n    \n    // If response is a string, check if it's JSON that needs parsing\n    if (typeof response === 'string') {\n        const trimmed = response.trim();\n        if (trimmed.startsWith('{') || trimmed.startsWith('[')) {\n            try {\n                const parsed = JSON.parse(trimmed);\n                return extractText(parsed);\n            } catch (e) {\n                return response;\n            }\n        }\n        return response;\n    }\n    \n    // If not an object, return null\n    if (typeof response !== 'object' || response === null) {\n        return null;\n    }\n    \n    // Format 1: OpenAI Responses API - output.content[0].text (PRIMARY FORMAT for LangChain OpenAI node v2)\n    if (response.output?.content && Array.isArray(response.output.content)) {\n        for (const contentItem of response.output.content) {\n            if (contentItem?.text) {\n                return contentItem.text;\n            }\n            if (contentItem?.type === 'output_text' && contentItem?.text) {\n                return contentItem.text;\n            }\n        }\n    }\n    \n    // Format 2: Direct output.text (simplified)\n    if (response.output?.text && typeof response.output.text === 'string') {\n        return response.output.text;\n    }\n    \n    // Format 3: If output itself is a string\n    if (typeof response.output === 'string') {\n        const trimmedOutput = response.output.trim();\n        if (trimmedOutput.startsWith('{') || trimmedOutput.startsWith('[')) {\n            try {\n                const parsedOutput = JSON.parse(trimmedOutput);\n                return extractText(parsedOutput);\n            } catch (e) {\n                return response.output;\n            }\n        }\n        return response.output;\n    }\n    \n    // Format 4: Standard chat completion - message.content\n    if (response.message?.content && typeof response.message.content === 'string') {\n        return response.message.content;\n    }\n    \n    // Format 5: OpenAI Chat Completions API - choices[0].message.content\n    if (response.choices?.[0]?.message?.content) {\n        return response.choices[0].message.content;\n    }\n    \n    // Format 6: Direct text property\n    if (typeof response.text === 'string') {\n        return response.text;\n    }\n    \n    // Format 7: Direct content property\n    if (typeof response.content === 'string') {\n        return response.content;\n    }\n    \n    // Format 8: n8n may wrap in a 'json' property\n    if (response.json) {\n        return extractText(response.json);\n    }\n    \n    // Format 9: n8n may wrap in a 'data' property\n    if (response.data) {\n        return extractText(response.data);\n    }\n    \n    // Format 10: Check if the response has a 'response' property (double-wrapped)\n    if (response.response) {\n        return extractText(response.response);\n    }\n    \n    return null;\n}\n\n// Try to extract from the AI response\nhumanizedComment = extractText(item);\n\n// If extraction failed, try mainComment from context\nif (!humanizedComment && context.mainComment) {\n    humanizedComment = context.mainComment;\n}\n\n// Last resort fallback\nif (!humanizedComment) {\n    humanizedComment = \"Error: Could not extract comment\";\n}\n\n// SAFETY CHECK: Ensure humanizedComment is a clean string, not JSON\nif (typeof humanizedComment === 'string') {\n    const trimmed = humanizedComment.trim();\n    if (trimmed.startsWith('{') || trimmed.startsWith('[')) {\n        try {\n            const parsed = JSON.parse(trimmed);\n            const extracted = extractText(parsed);\n            if (extracted && typeof extracted === 'string' && !extracted.trim().startsWith('{')) {\n                humanizedComment = extracted;\n            }\n        } catch (e) {\n            // Not valid JSON, keep as is\n        }\n    }\n}\n\n// Ensure it is a string (avoid literal \"undefined\")\nhumanizedComment = String(humanizedComment || '');\n\n// FINAL SAFETY: If still looks like raw API response, extract brutally\nif (humanizedComment.includes('\"output\":') && humanizedComment.includes('\"content\":')) {\n    // Method 1: Standard JSON text extraction (handles escaped newlines)\n    let textMatch = humanizedComment.match(/\"text\"\\s*:\\s*\"((?:[^\"\\\\]|\\\\.)*)\"/);\n    if (textMatch && textMatch[1]) {\n        humanizedComment = textMatch[1].replace(/\\\\n/g, '\\n').replace(/\\\\\"/g, '\"').replace(/\\\\\\\\/g, '\\\\');\n    } else {\n        // Method 2: Handle multiline text with literal newlines (malformed JSON)\n        const textStartMatch = humanizedComment.match(/\"text\"\\s*:\\s*\"/);\n        if (textStartMatch) {\n            const startIdx = textStartMatch.index + textStartMatch[0].length;\n            // Find the closing pattern: \"}] or \"}]}\n            let endPatterns = ['\"\\}\\]\\}', '\"}]', '\",', '\"\\}'];\n            let endIdx = humanizedComment.length;\n            for (const pattern of endPatterns) {\n                const regex = new RegExp(pattern);\n                const match = humanizedComment.substring(startIdx).match(regex);\n                if (match && (startIdx + match.index) < endIdx) {\n                    endIdx = startIdx + match.index;\n                }\n            }\n            if (endIdx > startIdx) {\n                humanizedComment = humanizedComment.substring(startIdx, endIdx)\n                    .replace(/\\\\n/g, '\\n')\n                    .replace(/\\\\\"/g, '\"')\n                    .replace(/\\\\\\\\/g, '\\\\');\n            }\n        }\n    }\n}\n\nconst finalCharCount = humanizedComment.length;\nconst currentIteration = context.currentIteration || 1;\nconst conversationHistory = context.conversationHistory || [];\n\n// 3. Calculate Diff\nlet diffSummary = null;\nif (conversationHistory.length > 0) {\n  const previousComment = conversationHistory[conversationHistory.length - 1].comment;\n  const previousLength = previousComment.length;\n  const lengthDiff = finalCharCount - previousLength;\n  const lengthDiffPercent = previousLength > 0 ? Math.round((lengthDiff / previousLength) * 100) : 0;\n  \n  diffSummary = {\n    previousLength,\n    currentLength: finalCharCount,\n    lengthDiff,\n    lengthDiffPercent,\n    lengthChange: lengthDiff > 0 ? 'увеличен' : lengthDiff < 0 ? 'сокращён' : 'без изменений'\n  };\n}\n\n// 4. RETURN MERGED DATA\nreturn {\n  json: {\n    ...context, // <--- This restores sessionId, profile, and history!\n    humanizedComment,\n    finalCharCount,\n    diffSummary,\n    readyForApproval: true\n  }\n};"
       },
-      "id": "calculate-revision-diff",
+      "id": "05ef0ec3-8fc0-4821-b4ec-0bf3298b66f5",
       "name": "Calculate Revision Diff",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [2840, 360]
+      "position": [
+        -832,
+        512
+      ]
     },
     {
       "parameters": {
-        "jsCode": "// Save current iteration to memory\nconst sessionId = $input.item.json.sessionId;\nconst staticData = $getWorkflowStaticData('global');\nconst humanizedComment = $input.item.json.humanizedComment;\nconst currentIteration = $input.item.json.currentIteration || 1;\nconst feedback = $input.item.json.feedback || null;\n\nif (!staticData.sessions || !staticData.sessions[sessionId]) {\n  throw new Error(`Memory not initialized for session ${sessionId}`);\n}\n\nconst memory = staticData.sessions[sessionId];\n\n// Add current iteration to history\nconst iterationData = {\n  iteration: currentIteration,\n  comment: humanizedComment,\n  feedback: feedback,\n  timestamp: new Date().toISOString(),\n  characterCount: humanizedComment.length\n};\n\nmemory.iterations.push(iterationData);\nmemory.current_iteration = currentIteration;\nmemory.last_updated = new Date().toISOString();\n\nstaticData.sessions[sessionId] = memory;\n\nreturn {\n  json: {\n    ...($input.item.json),\n    memorySaved: true,\n    memoryState: memory\n  }\n};"
+        "jsCode": "// Save current iteration to memory\nconst item = $input.item.json;\nconst sessionId = item.sessionId;\nconst staticData = $getWorkflowStaticData('global');\nconst humanizedComment = item.humanizedComment;\nconst currentIteration = item.currentIteration || 1;\nconst feedback = item.feedback || null;\n\n// --- CRITICAL FIX: RESTORE CHAT ID ---\n// If chatId was lost in the AI chain, grab it from the source of truth\nlet chatId = item.chatId;\nif (!chatId) {\n    try {\n        // Reach all the way back to the start\n        chatId = $node[\"Parse Request with PERSON\"].json.chatId;\n        console.log(\"Restored missing chatId from source node\");\n    } catch(e) {\n        console.log(\"Could not restore chatId from source\");\n    }\n}\n\n// Memory Safety Check\nif (!staticData.sessions) {\n  staticData.sessions = {};\n}\n\n// Handle missing session (e.g. if testing from middle of workflow)\nif (!staticData.sessions[sessionId]) {\n  console.log(`Creating new memory container for session: ${sessionId}`);\n  staticData.sessions[sessionId] = { \n      iterations: [], \n      chatId: chatId // Save it here so we don't lose it again\n  };\n}\n\nconst memory = staticData.sessions[sessionId];\n\n// Add current iteration to history\nconst iterationData = {\n  iteration: currentIteration,\n  comment: humanizedComment,\n  feedback: feedback,\n  timestamp: new Date().toISOString(),\n  characterCount: humanizedComment ? humanizedComment.length : 0\n};\n\nmemory.iterations.push(iterationData);\nmemory.current_iteration = currentIteration;\nmemory.last_updated = new Date().toISOString();\n// Ensure chatId is persistent in memory\nif (chatId) memory.chatId = chatId;\n\nstaticData.sessions[sessionId] = memory;\n\nreturn {\n  json: {\n    ...item,\n    chatId: chatId, // Explicitly pass the ID to the next node (Telegram)\n    memorySaved: true,\n    memoryState: memory\n  }\n};"
       },
-      "id": "save-to-memory",
+      "id": "dfb7f195-c981-4d3a-9837-a61e2aa91b26",
       "name": "Save to Memory",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [3040, 360]
+      "position": [
+        -624,
+        512
+      ]
     },
     {
       "parameters": {
         "chatId": "={{ $json.chatId }}",
-        "text": "=✅ Комментарий готов!{{ $json.currentIteration > 1 ? ' Версия ' + $json.currentIteration + '/∞' : '' }}\n\n👤 Профиль: {{ $json.profile.name_ru || $json.profile.name }}\n📊 Длина: {{ $json.finalCharCount }} знаков{{ $json.diffSummary ? ' (' + $json.diffSummary.lengthChange + ' на ' + Math.abs($json.diffSummary.lengthDiffPercent) + '%)' : '' }}\n📰 Медиа: {{ $json.media }}\n{{ $json.diffSummary && $json.changesSummary ? '\\n📝 Изменения: ' + $json.changesSummary : '' }}\n\n━━━━━━━━━━━━━━━━\n{{ $json.humanizedComment }}\n━━━━━━━━━━━━━━━━\n\n📋 Полный анализ ({{ $json.currentIteration > 1 ? '10' : '9' }} частей):\n{{ $json.fullDraftResponse }}",
+        "text": "=✅ Комментарий готов!{{ $json.currentIteration > 1 ? ' Версия ' + $json.currentIteration + '/∞' : '' }}\n\n👤 Профиль: {{ $json.profile.name_ru || $json.profile.name }}\n📊 Длина: {{ $json.finalCharCount }} знаков{{ $json.diffSummary ? ' (' + $json.diffSummary.lengthChange + ' на ' + Math.abs($json.diffSummary.lengthDiffPercent) + '%)' : '' }}\n📰 Медиа: {{ $json.media }}\n{{ $json.diffSummary && $json.changesSummary ? '\\n📝 Изменения: ' + $json.changesSummary : '' }}\n\n━━━━━━━━━━━━━━━━\n{{ $json.humanizedComment.replace(/\\\\n/g, '\\n') }}\n━━━━━━━━━━━━━━━━",
         "replyMarkup": "inlineKeyboard",
-        "inlineKeyboard": "={{ { \"inline_keyboard\": [[{\"text\": \"✅ Утвердить\", \"callback_data\": \"approve_\" + $json.sessionId}, {\"text\": \"🔄 Запросить правки\", \"callback_data\": \"request_edits_\" + $json.sessionId}], [{\"text\": \"✏️ Редактировать\", \"callback_data\": \"edit_\" + $json.sessionId}, {\"text\": \"🔄 Улучшить\", \"callback_data\": \"improve_\" + $json.sessionId}]] } }}"
+        "additionalFields": {}
       },
-      "id": "send-for-approval",
+      "id": "6ce7c972-26d4-4aab-b82d-59e7514bae90",
       "name": "Send For Approval with Revision Counter",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
-      "position": [3240, 360],
+      "position": [
+        -416,
+        512
+      ],
+      "webhookId": "a247b215-1025-4d79-910e-e7dd31026e99",
       "credentials": {
         "telegramApi": {
-          "id": "telegram_credentials",
-          "name": "Telegram Bot"
+          "id": "otGunkSSnwzGsnSm",
+          "name": "DDVB PR Comment Test Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://raw.githubusercontent.com/cybernexcorps/ceo-comment-writer/main/profiles/{{ $json.person ? $json.person.toLowerCase().replace(/\\s+/g, '_') : 'maria_arkhangelskaya' }}.json",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "id": "c47507bf-f7ef-4182-a8c1-d367405685ef",
+      "name": "Fetch Profile (GitHub)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -3360,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Get the downloaded profile from the HTTP node\nconst httpResult = $input.item.json;\nconst httpError = $input.item.error;\n\n// 2. RESTORE DATA (CRITICAL FIX)\n// We grab data directly from the \"Parse Request with PERSON\" node\n// This ensures chatId, question, media, etc. are always present\nlet originalRequest = {};\ntry {\n    // $node allows us to reach back to a specific node's output\n    originalRequest = $node[\"Parse Request with PERSON\"].json;\n} catch(e) {\n    console.log(\"Warning: Could not restore original request data\");\n}\n\n// 3. Profile Logic (Load or Fallback)\nlet profile = {};\nlet loadError = null;\n\nif (httpError || !httpResult.name) {\n    // PROFILE FAILED TO LOAD -> Use Minimal Fallback\n    loadError = `Failed to load profile. Using fallback.`;\n    profile = {\n        profile_id: 'fallback',\n        name: 'Maria Arkhangelskaya',\n        name_ru: 'Мария Архангельская',\n        title: 'CEO & Managing Partner of DDVB',\n        title_ru: 'Генеральный директор и управляющий партнёр DDVB',\n        company: 'DDVB',\n        expertise: ['Agency operations', 'Branding', 'Client relations'],\n        communication_style: 'Professional expert with systems-thinking approach',\n        communication_style_ru: 'Профессиональный эксперт с системным подходом',\n        tone: 'Authoritative yet warm, experience-based',\n        tone_ru: 'Авторитетный, но тёплый, основанный на опыте',\n        language: 'ru',\n        default_target_length: '1500-2000',\n        career_highlights: ['20+ years in branding', 'CEO since 2022'],\n        philosophy: 'Systems-thinking approach to management',\n        do_not_say: ['Marketing jargon', 'Client name-dropping']\n    };\n} else {\n    // PROFILE LOADED SUCCESSFULLY\n    profile = httpResult;\n}\n\n// 4. Merge Everything\nreturn {\n    json: {\n        ...originalRequest, // <--- This puts chatId back into the stream\n        profile,\n        profileLoadError: loadError,\n        profileLoaded: !loadError\n    }\n};"
+      },
+      "id": "53b0ec9d-5e9b-4899-9c69-fa94896926c6",
+      "name": "Validate & Merge Profile",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -3200,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "messages": {
+          "message": [
+            {
+              "content": "=// Prepare research query\nconst context = $input.item.json.context || '';\nconst question = $input.item.json.question;\nconst media = $input.item.json.media;\nconst sessionId = $input.item.json.sessionId;\n\n// Smart Link Detection\nconst urlRegex = /(https?:\\/\\/[^\\s]+)/g;\nconst foundUrls = context.match(urlRegex);\nconst hasUrl = !!foundUrls;\n\nlet researchInstructions = \"\";\n\nif (hasUrl) {\n    researchInstructions = `\n    CRITICAL INSTRUCTION: \n    1. The Context contains a URL: ${foundUrls[0]}\n    2. You MUST visit/browse this URL to understand the topic.\n    3. Do not just rely on the URL text, access the content.\n    `;\n}\n\n// Store current request data in workflow static data\nconst staticData = $getWorkflowStaticData('global');\nif (!staticData.currentRequest) {\n  staticData.currentRequest = {};\n}\nstaticData.currentRequest[sessionId] = {\n  sessionId: sessionId,\n  chatId: $input.item.json.chatId,\n  userId: $input.item.json.userId,\n  messageId: $input.item.json.messageId,\n  person: $input.item.json.person,\n  media: media,\n  question: question,\n  context: context,\n  targetLength: $input.item.json.targetLength,\n  profile: $input.item.json.profile,\n  memory: $input.item.json.memory,\n  originalMessage: $input.item.json.originalMessage\n};\nstaticData.activeSessionId = sessionId;\n\nreturn {\n  json: {\n    ...($input.item.json),\n    researchQuery: `Task: Research this media request.\n${researchInstructions}\n\nContext Provided: ${context}\nJournalist Question: ${question}\nTarget Media: ${media}\n\nOutput Requirements:\n1. Summary of the article/topic\n2. Key facts/stats mentioned\n3. How this affects the industry\n4. Specific quotes if applicable`\n  }\n};"
+            }
+          ]
+        },
+        "options": {},
+        "requestOptions": {}
+      },
+      "id": "13af9824-3a52-402a-b59c-340fe82f2cc2",
+      "name": "Research Media, Market, Article",
+      "type": "n8n-nodes-base.perplexity",
+      "typeVersion": 1,
+      "position": [
+        -2464,
+        224
+      ],
+      "credentials": {
+        "perplexityApi": {
+          "id": "um7RpJwg4207ROLP",
+          "name": "Perplexity account"
         }
       }
     },
@@ -293,11 +404,14 @@
       "parameters": {
         "jsCode": "// Parse callback query from Telegram button press\nconst callbackQuery = $input.item.json.callback_query;\nconst callbackData = callbackQuery.data;\nconst chatId = callbackQuery.message.chat.id;\nconst userId = callbackQuery.from.id;\nconst messageId = callbackQuery.message.message_id;\n\nconst parts = callbackData.split('_');\nconst action = parts[0];\nconst sessionId = parts.slice(1).join('_');\n\nreturn {\n  json: {\n    action,\n    sessionId,\n    chatId,\n    userId,\n    messageId,\n    callbackQueryId: callbackQuery.id,\n    callbackData\n  }\n};"
       },
-      "id": "parse-callback",
+      "id": "412576f1-847b-45a5-b8b7-a634061eacc3",
       "name": "Parse Callback Query",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [440, 600]
+      "position": [
+        -3728,
+        960
+      ]
     },
     {
       "parameters": {
@@ -310,37 +424,47 @@
           ]
         }
       },
-      "id": "route-callback-action",
+      "id": "4ae60e1f-3df7-4716-9bd6-af0191ecebfc",
       "name": "Route Callback Action",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
-      "position": [640, 600]
+      "position": [
+        -3536,
+        960
+      ]
     },
     {
       "parameters": {
         "jsCode": "// Handle approval action\nconst sessionId = $input.item.json.sessionId;\nconst staticData = $getWorkflowStaticData('global');\n\nif (staticData.sessions && staticData.sessions[sessionId]) {\n  const memory = staticData.sessions[sessionId];\n  const finalComment = memory.iterations[memory.iterations.length - 1].comment;\n  \n  memory.status = 'completed';\n  memory.completed_at = new Date().toISOString();\n  staticData.sessions[sessionId] = memory;\n  \n  return {\n    json: {\n      ...($input.item.json),\n      finalComment,\n      totalIterations: memory.iterations.length,\n      approved: true\n    }\n  };\n} else {\n  throw new Error(`Session ${sessionId} not found in memory`);\n}"
       },
-      "id": "handle-approval",
+      "id": "16737514-bb11-437c-b6a6-1bbb067a5867",
       "name": "Handle Approval",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [840, 500]
+      "position": [
+        -3328,
+        720
+      ]
     },
     {
       "parameters": {
         "chatId": "={{ $json.chatId }}",
         "text": "=✅ Комментарий утверждён!\n\n📊 Итераций: {{ $json.totalIterations }}\n📝 Финальная версия сохранена.\n\n━━━━━━━━━━━━━━━━\n{{ $json.finalComment }}\n━━━━━━━━━━━━━━━━\n\nСессия завершена. Память очищена.",
-        "replyMarkup": "none"
+        "additionalFields": {}
       },
-      "id": "send-approval-confirmation",
+      "id": "c9fc5333-2f4f-49d8-97e9-cb61eb8e2dcc",
       "name": "Send Approval Confirmation",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
-      "position": [1040, 500],
+      "position": [
+        -3120,
+        720
+      ],
+      "webhookId": "97985200-8f37-4a44-88f9-2d1faf8f89c0",
       "credentials": {
         "telegramApi": {
-          "id": "telegram_credentials",
-          "name": "Telegram Bot"
+          "id": "otGunkSSnwzGsnSm",
+          "name": "DDVB PR Comment Test Bot"
         }
       }
     },
@@ -348,11 +472,14 @@
       "parameters": {
         "jsCode": "// Clear memory for completed session\nconst sessionId = $input.item.json.sessionId;\nconst staticData = $getWorkflowStaticData('global');\n\nif (staticData.sessions && staticData.sessions[sessionId]) {\n  delete staticData.sessions[sessionId];\n}\n\nreturn {\n  json: {\n    ...($input.item.json),\n    memoryCleared: true\n  }\n};"
       },
-      "id": "clear-memory",
+      "id": "d49f0756-c2a2-42f4-b76b-4ea4e701a67c",
       "name": "Clear Memory on Complete",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1240, 500]
+      "position": [
+        -2912,
+        720
+      ]
     },
     {
       "parameters": {
@@ -365,27 +492,34 @@
           ]
         }
       },
-      "id": "check-request-edits",
+      "id": "b2f67ed1-9d36-4102-8cae-128aa8b51cf9",
       "name": "Check If Request Edits",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
-      "position": [840, 700]
+      "position": [
+        -3328,
+        1056
+      ]
     },
     {
       "parameters": {
         "chatId": "={{ $json.chatId }}",
         "text": "=🔄 Запрос правок\n\nОпишите, какие изменения нужно внести в комментарий. Примеры:\n\n• \"Сократить на 20% и добавить статистику\"\n• \"Более формальный тон для Forbes\"\n• \"Убрать упоминание конкурентов\"\n• \"Добавить конкретный пример из практики\"\n\nОтправьте ваши правки следующим сообщением:",
-        "replyMarkup": "none"
+        "additionalFields": {}
       },
-      "id": "prompt-for-feedback",
+      "id": "0abbd75b-d65e-4cb0-8e99-51a9b9cff63c",
       "name": "Prompt for Feedback Input",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
-      "position": [1040, 700],
+      "position": [
+        -3120,
+        1056
+      ],
+      "webhookId": "0c9227b8-38ff-49d0-987a-fe5a04b1bcf2",
       "credentials": {
         "telegramApi": {
-          "id": "telegram_credentials",
-          "name": "Telegram Bot"
+          "id": "otGunkSSnwzGsnSm",
+          "name": "DDVB PR Comment Test Bot"
         }
       }
     },
@@ -393,21 +527,27 @@
       "parameters": {
         "jsCode": "// Store pending feedback request in memory\nconst sessionId = $input.item.json.sessionId;\nconst staticData = $getWorkflowStaticData('global');\n\nif (staticData.sessions && staticData.sessions[sessionId]) {\n  const memory = staticData.sessions[sessionId];\n  memory.status = 'awaiting_feedback';\n  memory.awaiting_feedback_since = new Date().toISOString();\n  staticData.sessions[sessionId] = memory;\n}\n\nreturn {\n  json: {\n    ...($input.item.json),\n    awaitingFeedback: true\n  }\n};"
       },
-      "id": "mark-awaiting-feedback",
+      "id": "6eb8f9bf-47a5-4ba6-8600-2875f0f69c15",
       "name": "Mark Session Awaiting Feedback",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1240, 700]
+      "position": [
+        -2912,
+        1056
+      ]
     },
     {
       "parameters": {
         "jsCode": "// Handle feedback capture from new message\nconst messageText = $input.item.json.message?.text || '';\nconst chatId = $input.item.json.message?.chat?.id;\nconst userId = $input.item.json.message?.from?.id;\n\n// Find awaiting feedback session for this user\nconst staticData = $getWorkflowStaticData('global');\nlet targetSession = null;\n\nif (staticData.sessions) {\n  for (const [sessionId, memory] of Object.entries(staticData.sessions)) {\n    if (memory.status === 'awaiting_feedback' && sessionId.startsWith(`${userId}_`)) {\n      targetSession = { sessionId, memory };\n      break;\n    }\n  }\n}\n\nif (!targetSession) {\n  return {\n    json: {\n      isFeedback: false,\n      shouldSkip: true\n    }\n  };\n}\n\nconst memory = targetSession.memory;\n\nreturn {\n  json: {\n    isFeedback: true,\n    sessionId: targetSession.sessionId,\n    chatId,\n    userId,\n    feedback: messageText,\n    person: memory.person || 'maria_arkhangelskaya',\n    media: memory.media,\n    question: memory.question,\n    context: memory.context,\n    targetLength: memory.targetLength || '1500-2000',\n    profile: memory.profile,\n    memory: memory,\n    conversationHistory: memory.iterations,\n    currentIteration: memory.iterations.length + 1,\n    response: memory.researchResults\n  }\n};"
       },
-      "id": "capture-feedback-input",
+      "id": "63ff4047-9e8e-4a5e-bb7b-5631d3fc4777",
       "name": "Capture Feedback from Message",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [440, 900]
+      "position": [
+        -3728,
+        1392
+      ]
     },
     {
       "parameters": {
@@ -420,27 +560,34 @@
           ]
         }
       },
-      "id": "check-is-feedback",
+      "id": "62cd5e2d-abc8-4053-9461-6601650b91ce",
       "name": "Check If Feedback Message",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
-      "position": [640, 900]
+      "position": [
+        -3536,
+        1392
+      ]
     },
     {
       "parameters": {
         "chatId": "={{ $json.chatId }}",
         "text": "=✅ Правки получены!\n\n📝 Ваши инструкции: {{ $json.feedback }}\n\n🔄 Генерирую новую версию комментария с учётом ваших правок...",
-        "replyMarkup": "none"
+        "additionalFields": {}
       },
-      "id": "acknowledge-feedback",
+      "id": "6ae6472d-4b1d-42f6-8a22-be6dc8c3f667",
       "name": "Acknowledge Feedback Received",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
-      "position": [840, 900],
+      "position": [
+        -3328,
+        1376
+      ],
+      "webhookId": "9c246027-c005-460b-8647-41ccf5f4db4c",
       "credentials": {
         "telegramApi": {
-          "id": "telegram_credentials",
-          "name": "Telegram Bot"
+          "id": "otGunkSSnwzGsnSm",
+          "name": "DDVB PR Comment Test Bot"
         }
       }
     },
@@ -448,11 +595,14 @@
       "parameters": {
         "jsCode": "// Update memory status for regeneration\nconst sessionId = $input.item.json.sessionId;\nconst staticData = $getWorkflowStaticData('global');\n\nif (staticData.sessions && staticData.sessions[sessionId]) {\n  const memory = staticData.sessions[sessionId];\n  memory.status = 'active';\n  delete memory.awaiting_feedback_since;\n  staticData.sessions[sessionId] = memory;\n}\n\nreturn {\n  json: {\n    ...($input.item.json),\n    memoryUpdated: true\n  }\n};"
       },
-      "id": "update-memory-for-regeneration",
+      "id": "07d89f0d-3576-4a6a-9c59-b77ebfc69617",
       "name": "Update Memory for Regeneration",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1040, 900]
+      "position": [
+        -3120,
+        1376
+      ]
     },
     {
       "parameters": {
@@ -465,37 +615,47 @@
           ]
         }
       },
-      "id": "check-improve-action",
+      "id": "96a4d18e-45d9-44e8-adfb-bb7f45a558c6",
       "name": "Check If Improve Action",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
-      "position": [840, 800]
+      "position": [
+        -3328,
+        1232
+      ]
     },
     {
       "parameters": {
         "jsCode": "// Handle \"Improve\" button - auto-generate feedback\nconst sessionId = $input.item.json.sessionId;\nconst staticData = $getWorkflowStaticData('global');\n\nif (!staticData.sessions || !staticData.sessions[sessionId]) {\n  throw new Error(`Session ${sessionId} not found`);\n}\n\nconst memory = staticData.sessions[sessionId];\nconst autoFeedback = \"Улучшить оригинальность, добавить конкретные примеры или статистику, сделать более убедительным\";\n\nreturn {\n  json: {\n    sessionId,\n    chatId: $input.item.json.chatId,\n    userId: $input.item.json.userId,\n    feedback: autoFeedback,\n    person: memory.person || 'maria_arkhangelskaya',\n    media: memory.media,\n    question: memory.question,\n    context: memory.context,\n    targetLength: memory.targetLength || '1500-2000',\n    profile: memory.profile,\n    memory: memory,\n    conversationHistory: memory.iterations,\n    currentIteration: memory.iterations.length + 1,\n    response: memory.researchResults,\n    autoImprove: true\n  }\n};"
       },
-      "id": "handle-improve",
+      "id": "43c86f6b-d961-4cd6-8691-73825f94a730",
       "name": "Handle Improve (Auto Feedback)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1040, 800]
+      "position": [
+        -3120,
+        1216
+      ]
     },
     {
       "parameters": {
         "chatId": "={{ $json.chatId }}",
         "text": "=🔄 Улучшаю комментарий...\n\nАвтоматически применяю улучшения: оригинальность, примеры, убедительность.",
-        "replyMarkup": "none"
+        "additionalFields": {}
       },
-      "id": "send-improve-message",
+      "id": "4a644ded-8714-4541-a80e-1edd15b6b195",
       "name": "Send Improving Message",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
-      "position": [1240, 800],
+      "position": [
+        -2912,
+        1216
+      ],
+      "webhookId": "43f23378-fb92-45f8-954f-e3e2e8b016e9",
       "credentials": {
         "telegramApi": {
-          "id": "telegram_credentials",
-          "name": "Telegram Bot"
+          "id": "otGunkSSnwzGsnSm",
+          "name": "DDVB PR Comment Test Bot"
         }
       }
     },
@@ -510,171 +670,471 @@
           ]
         }
       },
-      "id": "check-edit-action",
+      "id": "693e914e-f4c3-4aa2-b0b7-a7c5c1ed8d8b",
       "name": "Check If Edit Action",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
-      "position": [840, 600]
+      "position": [
+        -3328,
+        896
+      ]
     },
     {
       "parameters": {
         "jsCode": "// Handle \"Edit\" button - similar to request_edits\nconst sessionId = $input.item.json.sessionId;\nconst staticData = $getWorkflowStaticData('global');\n\nif (staticData.sessions && staticData.sessions[sessionId]) {\n  const memory = staticData.sessions[sessionId];\n  memory.status = 'awaiting_feedback';\n  memory.awaiting_feedback_since = new Date().toISOString();\n  staticData.sessions[sessionId] = memory;\n}\n\nreturn {\n  json: {\n    ...($input.item.json),\n    awaitingFeedback: true\n  }\n};"
       },
-      "id": "handle-edit",
+      "id": "ba531a27-aaac-4fb2-9ada-caab9d68e11f",
       "name": "Handle Edit (Request Feedback)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1040, 600]
+      "position": [
+        -3120,
+        880
+      ]
     },
     {
       "parameters": {
         "chatId": "={{ $json.chatId }}",
         "text": "=✏️ Редактирование комментария\n\nОпишите, что нужно изменить. Например:\n\n• \"Сделать короче на 30%\"\n• \"Добавить упоминание дизайн-систем\"\n• \"Убрать слишком категоричные формулировки\"\n• \"Больше конкретики, меньше общих слов\"\n\nОтправьте ваши правки:",
-        "replyMarkup": "none"
+        "additionalFields": {}
       },
-      "id": "send-edit-prompt",
+      "id": "4e401c0b-7171-438c-9b63-be9584ae38c6",
       "name": "Send Edit Prompt",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.1,
-      "position": [1240, 600],
+      "position": [
+        -2912,
+        880
+      ],
+      "webhookId": "4c29a091-df66-401f-a20c-c7ae7b8b4db0",
       "credentials": {
         "telegramApi": {
-          "id": "telegram_credentials",
-          "name": "Telegram Bot"
+          "id": "otGunkSSnwzGsnSm",
+          "name": "DDVB PR Comment Test Bot"
         }
       }
     }
   ],
+  "pinData": {},
   "connections": {
     "Telegram Trigger": {
-      "main": [[{"node": "Parse Request with PERSON", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Parse Request with PERSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Telegram Callback Query Trigger": {
-      "main": [[{"node": "Parse Callback Query", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Parse Callback Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Parse Request with PERSON": {
       "main": [
         [
-          {"node": "Check Required Fields", "type": "main", "index": 0},
-          {"node": "Capture Feedback from Message", "type": "main", "index": 0}
+          {
+            "node": "Check Required Fields",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Capture Feedback from Message",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
     "Check Required Fields": {
       "main": [
-        [{"node": "Send Missing Fields Message", "type": "main", "index": 0}],
-        [{"node": "Load Profile", "type": "main", "index": 0}]
+        [
+          {
+            "node": "Send Missing Fields Message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Fetch Profile (GitHub)",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
-    "Load Profile": {
-      "main": [[{"node": "Initialize Revision Memory", "type": "main", "index": 0}]]
-    },
     "Initialize Revision Memory": {
-      "main": [[{"node": "Send Confirmation with Profile", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Send Confirmation with Profile",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Send Confirmation with Profile": {
-      "main": [[{"node": "Prepare Research Queries", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Prepare Research Queries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Prepare Research Queries": {
-      "main": [[{"node": "Research with Perplexity", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Merge Research with Request",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Research Media, Market, Article",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
-    "Research with Perplexity": {
-      "main": [[{"node": "Load Conversation History", "type": "main", "index": 0}]]
+    "Merge Research with Request": {
+      "main": [
+        [
+          {
+            "node": "Load Conversation History",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Load Conversation History": {
-      "main": [[{"node": "Build AI Agent Prompt with Memory", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Build AI Agent Prompt with Memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build AI Agent Prompt with Memory": {
-      "main": [[{"node": "AI Agent - Draft Comment (GPT-4o)", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Generate Comment (GPT)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
-    "AI Agent - Draft Comment (GPT-4o)": {
-      "main": [[{"node": "Extract Comment", "type": "main", "index": 0}]]
+    "Generate Comment (GPT)": {
+      "main": [
+        [
+          {
+            "node": "Extract Comment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Extract Comment": {
-      "main": [[{"node": "Humanize Comment", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Build Humanize Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
-    "Humanize Comment": {
-      "main": [[{"node": "Calculate Revision Diff", "type": "main", "index": 0}]]
+    "Build Humanize Prompt": {
+      "main": [
+        [
+          {
+            "node": "Humanize Comment (GPT)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Humanize Comment (GPT)": {
+      "main": [
+        [
+          {
+            "node": "Calculate Revision Diff",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Calculate Revision Diff": {
-      "main": [[{"node": "Save to Memory", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Save to Memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Save to Memory": {
-      "main": [[{"node": "Send For Approval with Revision Counter", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Send For Approval with Revision Counter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Profile (GitHub)": {
+      "main": [
+        [
+          {
+            "node": "Validate & Merge Profile",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate & Merge Profile": {
+      "main": [
+        [
+          {
+            "node": "Initialize Revision Memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Research Media, Market, Article": {
+      "main": [
+        [
+          {
+            "node": "Merge Research with Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Parse Callback Query": {
-      "main": [[{"node": "Route Callback Action", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Route Callback Action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Route Callback Action": {
       "main": [
-        [{"node": "Handle Approval", "type": "main", "index": 0}],
         [
-          {"node": "Check If Request Edits", "type": "main", "index": 0},
-          {"node": "Check If Improve Action", "type": "main", "index": 0},
-          {"node": "Check If Edit Action", "type": "main", "index": 0}
+          {
+            "node": "Handle Approval",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Check If Request Edits",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Check If Improve Action",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Check If Edit Action",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
     "Handle Approval": {
-      "main": [[{"node": "Send Approval Confirmation", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Send Approval Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Send Approval Confirmation": {
-      "main": [[{"node": "Clear Memory on Complete", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Clear Memory on Complete",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Check If Request Edits": {
       "main": [
-        [{"node": "Prompt for Feedback Input", "type": "main", "index": 0}]
+        [
+          {
+            "node": "Prompt for Feedback Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Prompt for Feedback Input": {
-      "main": [[{"node": "Mark Session Awaiting Feedback", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Mark Session Awaiting Feedback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Capture Feedback from Message": {
-      "main": [[{"node": "Check If Feedback Message", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Check If Feedback Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Check If Feedback Message": {
       "main": [
-        [{"node": "Acknowledge Feedback Received", "type": "main", "index": 0}]
+        [
+          {
+            "node": "Acknowledge Feedback Received",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Acknowledge Feedback Received": {
-      "main": [[{"node": "Update Memory for Regeneration", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Update Memory for Regeneration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Update Memory for Regeneration": {
-      "main": [[{"node": "Load Conversation History", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Load Conversation History",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Check If Improve Action": {
       "main": [
-        [{"node": "Handle Improve (Auto Feedback)", "type": "main", "index": 0}]
+        [
+          {
+            "node": "Handle Improve (Auto Feedback)",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Handle Improve (Auto Feedback)": {
-      "main": [[{"node": "Send Improving Message", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Send Improving Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Send Improving Message": {
-      "main": [[{"node": "Load Conversation History", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Load Conversation History",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Check If Edit Action": {
       "main": [
-        [{"node": "Handle Edit (Request Feedback)", "type": "main", "index": 0}]
+        [
+          {
+            "node": "Handle Edit (Request Feedback)",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Handle Edit (Request Feedback)": {
-      "main": [[{"node": "Send Edit Prompt", "type": "main", "index": 0}]]
+      "main": [
+        [
+          {
+            "node": "Send Edit Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
+  "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "staticData": {
-    "sessions": {}
-  },
-  "tags": [],
-  "pinData": {},
+  "versionId": "19017dcc-291f-4d23-a243-d2725090d59f",
   "meta": {
-    "templateCredsSetupCompleted": true
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c43650aac784c0350f3118d77384bbe7d5304d048a958ee218cafcaff1cce473"
   },
-  "versionId": "2.3.0",
-  "description": "CEO Comment Writer v2.3 with LangChain AI Agent architecture, BufferMemory for conversational memory, and unlimited PR manager feedback iterations. Enhanced with revision tracking, diff calculation, and feedback loop routing.",
-  "active": false
+  "id": "irnP9lZV7MKPwo5u",
+  "tags": []
 }

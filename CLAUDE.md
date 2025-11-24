@@ -65,10 +65,11 @@ This repository contains an **n8n workflow automation system** (v2.3) for AI-pow
 
 ### Voice & Profile Files
 
-**maria-ceo-comment-writer-prompt.md**
-- Comprehensive prompt library (~23 KB)
-- Full system instructions for ghostwriting in Maria's voice
-- Voice guidelines, ethical boundaries, response framework
+**PROMPTS.md**
+- Complete prompt templates reference
+- All AI Agent and Humanization prompts documented
+- Variable reference and modification guide
+- System and user message templates
 
 **Мария Архангельская и DDVB_ профиль и роль.md**
 - Maria's professional profile and background (Russian)
@@ -270,7 +271,7 @@ All files use UTF-8 encoding due to Russian (Cyrillic) content. Ensure any edits
 | `WORKFLOW-V2.3-AI-AGENT-GUIDE.md` | Technical architecture |
 | `PR-MANAGER-FEEDBACK-GUIDE.md` | User guide for feedback |
 | `MULTI-COMMENTATOR-GUIDE.md` | Multi-person system guide |
-| `maria-ceo-comment-writer-prompt.md` | Prompt library |
+| `PROMPTS.md` | Prompt templates reference |
 | `Мария Архангельская и DDVB_ профиль и роль.md` | Maria's background |
 | `QUICK-START.md` | 15-minute setup |
 | `N8N-WORKFLOW-SETUP.md` | Comprehensive setup |
