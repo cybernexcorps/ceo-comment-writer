@@ -117,6 +117,47 @@
   "default_target_length": "1500-2000",
   "language": "ru",
   "active": true,
-  "version": "2.0",
-  "last_updated": "2026-03-20"
+  "version": "3.0",
+  "last_updated": "2026-03-27",
+  "voice_fingerprint": {
+    "sentence_rhythm": "Opens with a hook — a question, a surprising fact, or a short provocation (under 10 words). Then expands into narrative sentences (15-30 words). More variation in length than Maria — alternates short and long.",
+    "opener_patterns": [
+      "А вы знали, что...",
+      "Вот интересный кейс:",
+      "Недавно наткнулся на исследование...",
+      "Давайте честно:",
+      "Есть одна штука, которую мало кто замечает:"
+    ],
+    "transition_markers": [
+      "И вот тут начинается самое интересное",
+      "Но давайте посмотрим на это иначе",
+      "Кстати, есть данные",
+      "На самом деле",
+      "Вот конкретный пример"
+    ],
+    "closing_patterns": [
+      "И это только начало — категория будет развиваться.",
+      "Посмотрим, что из этого вырастет.",
+      "А пока — [практический вывод].",
+      "Думаю, через пару лет мы увидим совершенно другую картину."
+    ],
+    "characteristic_moves": [
+      "Hook/provocation → story that illustrates → broader industry context",
+      "Research citation (named study or outlet) → fresh interpretation → category future",
+      "Specific case from media/PR world → generalization about communications",
+      "Humor or irony → serious insight underneath"
+    ],
+    "never_does": [
+      "Opens with a declarative authority statement (За 20 лет...)",
+      "Uses physics or science metaphors",
+      "Speaks from position of CEO/executive authority",
+      "Writes in dry formal tone without narrative arc",
+      "Avoids external research — always cites studies and data"
+    ],
+    "reference_fragments": [
+      "Недавно наткнулся на исследование Nielsen — оказывается, 67% потребителей доверяют брендам, которые открыто рассказывают о своих ошибках. Казалось бы, парадокс. Но для тех, кто занимается PR, это давно не новость.",
+      "Давайте честно: большинство пресс-релизов летят в корзину. Не потому что плохо написаны — потому что не рассказывают историю. А журналисту нужна именно история, не набор фактов.",
+      "Вот конкретный пример из нашей практики. Клиент пришёл с задачей 'нам нужен PR'. Мы потратили первую неделю не на медиаплан, а на то, чтобы найти — а о чём, собственно, рассказывать?"
+    ]
+  }
 }
