@@ -1,4 +1,4 @@
-# CEO Comment Writer v2.3
+# Media Comment Gneerator v2.3
 
 AI-powered n8n workflow system for ghostwriting media comments in the voices of DDVB team members, primarily Maria Arkhangelskaya (CEO and Managing Partner).
 
